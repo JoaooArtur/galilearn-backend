@@ -1,0 +1,9 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+  <ItemGroup>
+    <ProjectReference Include="..\..\..\Core\Core.Infrastructure\Core.Infrastructure.csproj" />
+    <ProjectReference Include="..\Student.Application\Student.Application.csproj" />
+    <ProjectReference Include="..\Student.Domain\Student.Domain.csproj" />
+    <ProjectReference Include="..\Student.Persistence\Student.Persistence.csproj" />
+  </ItemGroup>
+
+</Project>
