@@ -1,5 +1,6 @@
 ﻿using Core.Infrastructure.EventBus;
 using MassTransit;
+using Subject.Application.UseCases.Events;
 using WebBff.ServiceInstallers.EventBus.Extensions;
 
 namespace WebBff.ServiceInstallers.EventBus.Consumers.Subjects
@@ -16,7 +17,9 @@ namespace WebBff.ServiceInstallers.EventBus.Consumers.Subjects
         {
             rabbitMqBusFactoryConfigurator.ConfigureEventReceiveEndpoint<ProjectSubjectWhenSubjectChangedConsumer, SubjectDomainEvent.SubjectCreated>(registrationContext, MODULE_NAME);
             rabbitMqBusFactoryConfigurator.ConfigureEventReceiveEndpoint<ProjectSubjectWhenSubjectChangedConsumer, SubjectDomainEvent.SubjectDeleted>(registrationContext, MODULE_NAME);
-            rabbitMqBusFactoryConfigurator.ConfigureEventReceiveEndpoint<ProjectSubjectWhenSubjectChangedConsumer, SubjectDomainEvent.LessonAdded>(registrationContext, MODULE_NAME);
+            rabbitMqBusFactoryConfigurator.ConfigureEventReceiveEndpoint<ProjectLessonWhenLessonChangedConsumer, SubjectDomainEvent.LessonAdded>(registrationContext, MODULE_NAME);
+            rabbitMqBusFactoryConfigurator.ConfigureEventReceiveEndpoint<ProjectQuestionWhenQuestionChangedConsumer, SubjectDomainEvent.QuestionAdded>(registrationContext, MODULE_NAME);
+            rabbitMqBusFactoryConfigurator.ConfigureEventReceiveEndpoint<ProjectQuestionWhenQuestionChangedConsumer, SubjectDomainEvent.AnswerOptionAdded>(registrationContext, MODULE_NAME);
         }
     }
 }

@@ -1,5 +1,7 @@
 ﻿using Core.Domain.Primitives;
 using Subject.Domain.Entities;
+using Subject.Domain.Enumerations;
+using Subject.Domain.ValueObjects;
 
 namespace Subject.Domain.Aggregates;
 
@@ -29,8 +31,25 @@ public class Subject : AggregateRoot
     public void Delete()
         => RaiseEvent<DomainEvent.SubjectDeleted>(version => new(Id, version));
 
-    public void AddLesson(string title, string content, int index)
-        => RaiseEvent<DomainEvent.LessonAdded>(version => new(Id, Guid.NewGuid(), title, content, index, DateTimeOffset.Now, version));
+    public Guid AddLesson(string title, string content, int index)
+    {
+        var lessonId = Guid.NewGuid();
+        RaiseEvent<DomainEvent.LessonAdded>(version => new(Id, lessonId, title, content, index, DateTimeOffset.Now, version));
+        return lessonId;
+    }
+
+    public Guid AddQuestion(Guid lessonId, string text, QuestionLevel level)
+    {
+        var questionId = Guid.NewGuid();
+        RaiseEvent<DomainEvent.QuestionAdded>(version => new(questionId, lessonId, text, level, DateTimeOffset.Now, version));
+        return questionId;
+    }
+    public Guid AddQuestionAnswerOption(Guid lessonId, Guid questionId, string text, bool isRightAnswer)
+    {
+        var answerId = Guid.NewGuid();
+        RaiseEvent<DomainEvent.AnswerOptionAdded>(version => new(lessonId, questionId, answerId, text, isRightAnswer, DateTimeOffset.Now, version));
+        return lessonId;
+    }
 
     protected override void ApplyEvent(IDomainEvent @event)
         => When(@event as dynamic);
@@ -48,5 +67,12 @@ public class Subject : AggregateRoot
 
     private void When(DomainEvent.LessonAdded @event)
         => Lessons.Add(Lesson.Create(@event.LessonId, @event.Title, @event.Content, @event.Index));
+    private void When(DomainEvent.QuestionAdded @event)
+        => Lessons.FirstOrDefault(x => x.Id == @event.LessonId)
+        .Questions.Add(Question.Create(@event.QuestionId, @event.Text, @event.Level));
+    private void When(DomainEvent.AnswerOptionAdded @event)
+        => Lessons.FirstOrDefault(x => x.Id == @event.LessonId)
+        .Questions.FirstOrDefault(x => x.Id == @event.QuestionId)
+        .AddAnswer(@event.AnswerOptionId, @event.Text, @event.IsRightAnswer);
 
 }
