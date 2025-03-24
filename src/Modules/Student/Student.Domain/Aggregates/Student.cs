@@ -23,7 +23,7 @@ public class Student : AggregateRoot
             name,
             phone,
             StudentStatus.PendingProfile,
-            Student.DateOfBirth,
+            dateOfBirth,
             Student.CreatedAt,
             version));
 

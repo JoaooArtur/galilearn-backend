@@ -7,8 +7,7 @@ namespace Subject.Application.UseCases.Events
 {
     public interface IProjectSubjectWhenSubjectChangedEventHandler :
         IEventHandler<DomainEvent.SubjectCreated>,
-        IEventHandler<DomainEvent.SubjectDeleted>,
-        IEventHandler<DomainEvent.LessonAdded>;
+        IEventHandler<DomainEvent.SubjectDeleted>;
 
     public class ProjectSubjectWhenSubjectChangedEventHandler(
         ISubjectProjection<Projection.Subject> subjectProjection,
@@ -43,23 +42,6 @@ namespace Subject.Application.UseCases.Events
             catch (Exception ex)
             {
                 logger.Error(ex, $"Falha ao deletar o assunto: {@event.SubjectId}.");
-
-                throw;
-            }
-        }
-        public async Task Handle(DomainEvent.LessonAdded @event, CancellationToken cancellationToken = default)
-        {
-            try
-            {
-                //await SubjectProjection.UpdateOneFieldAsync(
-                //    id: @event.SubjectId,
-                //    field: Subject => Subject.Status,
-                //    value: @event.Status,
-                //    cancellationToken: cancellationToken);
-            }
-            catch (Exception ex)
-            {
-                logger.Error(ex, $"Falha ao atualizar o status do assunto: {@event.SubjectId}.");
 
                 throw;
             }
