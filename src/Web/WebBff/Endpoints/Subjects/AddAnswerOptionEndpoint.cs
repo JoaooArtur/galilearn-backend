@@ -25,7 +25,7 @@ namespace WebBff.Endpoints.Subjects
             Description = "Creates a new Answer Option for a question based on the provided request data.",
             Tags = [Tags.Subjects])]
         public override async Task<ActionResult<IdentifierResponse>> HandleAsync(
-        [FromBody] AddAnswerOptionRequest request,
+        AddAnswerOptionRequest request,
         CancellationToken cancellationToken = default) =>
         await Result.Create(request)
             .Map(addAnswerOptionRequest => new AddAnswerOptionCommand(

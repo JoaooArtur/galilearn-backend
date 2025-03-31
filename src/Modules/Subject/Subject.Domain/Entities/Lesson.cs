@@ -8,7 +8,7 @@ public class Lesson : Entity
     public string Title { get; private set; }
     public string Content { get; private set; }
     public int Index { get; private set; }
-    public List<Question> Questions { get; private set; }
+    public List<Question> Questions { get; private set; } = [];
 
     public Lesson(
         Guid id,

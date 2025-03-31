@@ -3,7 +3,7 @@
     using MassTransit;
     using Student.Application.UseCases.Events;
     using Student.Domain;
-    public class ProjectSubjectWhenSubjectChangedConsumer(
+    public class ProjectStudentWhenStudentChangedConsumer(
         IProjectStudentWhenStudentChangedEventHandler eventHandler) :
         IConsumer<DomainEvent.StudentCreated>,
         IConsumer<DomainEvent.StudentActiveStatus>,

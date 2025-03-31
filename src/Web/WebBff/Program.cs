@@ -17,7 +17,8 @@ builder.Services
         Core.Persistence.AssemblyReference.Assembly)
     .InstallModulesFromAssemblies(
         builder.Configuration,
-        Student.Infrastructure.AssemblyReference.Assembly);
+        Student.Infrastructure.AssemblyReference.Assembly,
+        Subject.Infrastructure.AssemblyReference.Assembly);
 
 #if !DEBUG
 builder.ConfigureSystemsManager();

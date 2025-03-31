@@ -7,6 +7,10 @@ namespace WebBff.Endpoints.Students.Requests
     /// </summary>
     public sealed class SignUpRequest
     {
+        public string Name { get; set; }
         public string Email { get; set; }
+        public string Password { get; set; }
+        public string Phone { get; set; }
+        public DateTimeOffset DateOfBirth { get; set; }
     }
 }
