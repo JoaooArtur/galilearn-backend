@@ -25,7 +25,7 @@ namespace WebBff.Endpoints.Subjects
             Description = "Creates a new Lesson based on the provided request data.",
             Tags = [Tags.Subjects])]
         public override async Task<ActionResult<IdentifierResponse>> HandleAsync(
-        [FromBody] CreateLessonRequest request,
+        CreateLessonRequest request,
         CancellationToken cancellationToken = default) =>
         await Result.Create(request)
             .Map(createLessonRequest => new CreateLessonCommand(

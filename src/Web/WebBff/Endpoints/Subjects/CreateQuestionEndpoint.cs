@@ -25,7 +25,7 @@ namespace WebBff.Endpoints.Subjects
             Description = "Creates a new Question based on the provided request data.",
             Tags = [Tags.Subjects])]
         public override async Task<ActionResult<IdentifierResponse>> HandleAsync(
-        [FromBody] CreateQuestionRequest request,
+        CreateQuestionRequest request,
         CancellationToken cancellationToken = default) =>
         await Result.Create(request)
             .Map(createQuestionRequest => new CreateQuestionCommand(

@@ -30,7 +30,12 @@ namespace WebBff.Endpoints.Students
         SignUpRequest request,
         CancellationToken cancellationToken = default) =>
         await Result.Create(request)
-            .Map(signUpRequest => new SignUpCommand())
+            .Map(signUpRequest => new SignUpCommand(
+                signUpRequest.Name,
+                signUpRequest.Email,
+                signUpRequest.Password,
+                signUpRequest.Phone,
+                signUpRequest.DateOfBirth))
             .Bind(command => sender.Send(command, cancellationToken))
             .Match(Ok, this.HandleFailure);
     }

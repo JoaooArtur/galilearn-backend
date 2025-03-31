@@ -1,6 +1,5 @@
 ﻿using Core.Infrastructure.EventBus;
 using MassTransit;
-using Subject.Application.UseCases.Events;
 using WebBff.ServiceInstallers.EventBus.Extensions;
 
 namespace WebBff.ServiceInstallers.EventBus.Consumers.Subjects

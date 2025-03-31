@@ -1,9 +1,5 @@
 ﻿using Microsoft.Extensions.DependencyInjection;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using Subject.Application.UseCases.Events;
 
 namespace Subject.Application.DependencyInjection
 {
@@ -11,7 +7,8 @@ namespace Subject.Application.DependencyInjection
     public static class ServiceCollectionExtensions
     {
         public static IServiceCollection AddEventInteractors(this IServiceCollection services)
-            => services;
-        //.AddScoped<ISendEmailWhenCreditConsultationCreatedHandler, SendEmailWhenCreditConsultationCreatedHandler>();
+            => services.AddScoped<IProjectLessonWhenLessonChangedEventHandler, ProjectLessonWhenLessonChangedEventHandler>()
+                    .AddScoped<IProjectQuestionWhenQuestionChangedEventHandler, ProjectQuestionWhenQuestionChangedEventHandler>()
+                    .AddScoped<IProjectSubjectWhenSubjectChangedEventHandler, ProjectSubjectWhenSubjectChangedEventHandler>();
     }
 }
