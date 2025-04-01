@@ -28,7 +28,7 @@ namespace Student.Application.UseCases.Commands
                 await applicationService.AppendEventsAsync(student, cancellationToken);
             }
 
-            if (student.SubjectProgresses.FirstOrDefault(x => x.SubjectId == cmd.SubjectId)?.LessonProgresses.Any(x => x.LessonId == cmd.SubjectId) == false)
+            if (student.SubjectProgresses.FirstOrDefault(x => x.SubjectId == cmd.SubjectId)?.LessonProgresses.Any(x => x.LessonId == cmd.LessonId) == false)
             {
                 student.AddLessonProgress(cmd.SubjectId, cmd.LessonId);
                 await applicationService.AppendEventsAsync(student, cancellationToken);

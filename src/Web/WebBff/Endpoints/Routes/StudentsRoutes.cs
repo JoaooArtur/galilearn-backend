@@ -14,7 +14,9 @@
         internal const string CreateAttempt = $"{BaseUri}/{{{StudentId}:guid}}/{{{SubjectId}:guid}}/{{{LessonId}:guid}}/attempt";
         internal const string AnswerAttempt = $"{BaseUri}/{{{StudentId}:guid}}/{{{SubjectId}:guid}}/{{{LessonId}:guid}}/{{{AttemptId}:guid}}/answer";
         internal const string DeleteStudent = $"{BaseUri}/{{{StudentId}:guid}}";
-        internal const string AddFriend = $"{BaseUri}/friends/{{{StudentId}:guid}}";
+        internal const string PagedSubjectProgressByStudentId = $"{BaseUri}/{{{StudentId}:guid}}/subjects/paged";
+        internal const string ListSubjectProgressByStudentId = $"{BaseUri}/{{{StudentId}:guid}}/subjects";
+        internal const string ListLessonProgressBySubjectId = $"{BaseUri}/{{{StudentId}:guid}}/{{{SubjectId}:guid}}/lessons";
 
         internal const string GetStudentById = $"{BaseUri}";
     }

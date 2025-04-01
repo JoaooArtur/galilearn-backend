@@ -73,7 +73,7 @@ namespace Student.Application.UseCases.Events
                     update: update,
                     cancellationToken: cancellationToken);
 
-                if (attemptDb.QuestionsAnswered >= 5) 
+                if (attemptDb.QuestionsAnswered + 1 >= 5) 
                 {
                     var studentResult = await applicationService.LoadAggregateAsync<StudentAggregate>(@event.StudentId, cancellationToken);
 

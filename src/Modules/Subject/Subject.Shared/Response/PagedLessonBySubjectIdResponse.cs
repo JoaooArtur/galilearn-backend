@@ -6,6 +6,7 @@ namespace Subject.Shared.Response
             Guid SubjectId,
             string Title,
             string Content,
+            int QuestionsCount,
             int Index,
             DateTimeOffset CreatedAt);
 }

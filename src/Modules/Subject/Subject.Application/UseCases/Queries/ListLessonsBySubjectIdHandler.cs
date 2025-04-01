@@ -1,6 +1,4 @@
 ﻿using Core.Application.Messaging;
-using Core.Application.Pagination;
-using Core.Domain.Primitives;
 using Core.Shared.Results;
 using Subject.Domain;
 using Subject.Persistence.Projections;
@@ -9,28 +7,25 @@ using Subject.Shared.Response;
 
 namespace Subject.Application.UseCases.Queries
 {
-    public class PagedLessonsBySubjectIdHandler(
-        ISubjectProjection<Projection.Lesson> projectionGateway,
-        ISubjectProjection<Projection.Question> questionProjectionGateway) : IQueryHandler<PagedLessonsBySubjectIdQuery, IPagedResult<PagedLessonBySubjectIdResponse>>
+    public class ListLessonsBySubjectIdHandler(ISubjectProjection<Projection.Lesson> projectionGateway,
+        ISubjectProjection<Projection.Question> questionProjectionGateway) : IQueryHandler<ListLessonsBySubjectIdQuery, List<PagedLessonBySubjectIdResponse>>
     {
-        public async Task<Result<IPagedResult<PagedLessonBySubjectIdResponse>>> Handle(PagedLessonsBySubjectIdQuery query, CancellationToken cancellationToken)
+        public async Task<Result<List<PagedLessonBySubjectIdResponse>>> Handle(ListLessonsBySubjectIdQuery query, CancellationToken cancellationToken)
         {
             var lessons = await projectionGateway.ListAsync(lesson => lesson.SubjectId == query.SubjectId, cancellationToken);
 
             var response = new List<PagedLessonBySubjectIdResponse>();
 
-            foreach (var lesson in lessons) 
+            foreach (var lesson in lessons)
             {
                 var questionCount = await questionProjectionGateway.ListAsync(x => x.LessonId == lesson.Id);
 
                 response.Add(new PagedLessonBySubjectIdResponse(
                 lesson.Id, lesson.SubjectId, lesson.Title, lesson.Content, questionCount.Count, lesson.Index, lesson.CreatedAt));
             }
-
-            
             return lessons is not null
-                ? Result.Success(PagedResult<PagedLessonBySubjectIdResponse>.Create(query.Paging, response.AsQueryable()))
-                : Result.Success<IPagedResult<PagedLessonBySubjectIdResponse>>(default);
+                ? Result.Success(response)
+                : Result.Success<List<PagedLessonBySubjectIdResponse>>(default);
         }
     }
 }
