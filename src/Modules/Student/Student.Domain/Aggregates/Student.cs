@@ -11,9 +11,15 @@ public class Student : AggregateRoot
     public string Name { get; private set; }
     public string Phone { get; private set; }
     public string Email { get; private set; }
+    public int Level { get; private set; } = 1;
+    public int DayStreak { get; private set; } = 0;
+    public int Xp { get; private set; }
+    public int NextLevelXPNeeded { get; private set; } = 50;
     public StudentStatus Status { get; private set; }
     public DateTimeOffset DateOfBirth { get; private set; }
+    public DateTimeOffset? LastLessonAnswered { get; private set; }
     public List<Friend> Friends { get; private set; } = [];
+    public List<FriendRequest> Requests { get; private set; } = [];
     public List<SubjectProgress> SubjectProgresses { get; private set; } = [];
 
     public static Student Create(string name, string email, string password, string phone, DateTimeOffset dateOfBirth)
@@ -88,10 +94,28 @@ public class Student : AggregateRoot
 
     public void AddFriend(Guid friendId)
         => RaiseEvent<DomainEvent.FriendAdded>(version => new(Id, friendId, version));
+
+    public void AddXp(int xpAmount)
+        => RaiseEvent<DomainEvent.XpAdded>(version => new(Id, xpAmount, Xp + xpAmount >= NextLevelXPNeeded ? true : false, version));
+
+    public void AddDayStreak()
+        => RaiseEvent<DomainEvent.StreakAdded>(version => new(Id, version));
+
+    public void CreateFriendRequest(Guid friendId)
+        => RaiseEvent<DomainEvent.FriendRequestCreatedStatus>(version => new(Guid.NewGuid(), Id, friendId, version));
+
+    public void AcceptFriendRequest(Guid requestId, Guid friendId)
+        => RaiseEvent<DomainEvent.FriendRequestAcceptedStatus>(version => new(requestId, Id, friendId, FriendRequestStatus.Accepted, version));
+
+    public void RejectFriendRequest(Guid requestId)
+        => RaiseEvent<DomainEvent.FriendRequestRejectedStatus>(version => new(requestId, FriendRequestStatus.Rejected, version));
+
     public void AddSubjectProgress(Guid subjectId)
         => RaiseEvent<DomainEvent.SubjectProgressCreated>(version => new(Guid.NewGuid(), subjectId, Id, version));
+
     public void AddLessonProgress(Guid subjectId, Guid lessonId)
         => RaiseEvent<DomainEvent.LessonProgressCreated>(version => new(Guid.NewGuid(), lessonId, subjectId, Id, version));
+
     public Guid AddAttempt(Guid subjectId, Guid lessonId)
     {
         var attemptId = Guid.NewGuid();
@@ -124,6 +148,22 @@ public class Student : AggregateRoot
     private void When(DomainEvent.StudentDefaultStatus @event)
         => Status = @event.Status;
 
+    private void When(DomainEvent.XpAdded @event)
+    {
+        Xp = (Xp + @event.XpAmount) - NextLevelXPNeeded;
+
+        if (@event.LeveledUp)
+        {
+            Level = Level++;
+            NextLevelXPNeeded = 100 * Level;
+        }
+    }
+    private void When(DomainEvent.StreakAdded @event)
+    {
+        DayStreak = DayStreak++;
+        LastLessonAnswered = DateTimeOffset.Now;
+    }
+
     private void When(DomainEvent.StudentActiveStatus @event)
         => Status = @event.Status;
 
@@ -154,4 +194,16 @@ public class Student : AggregateRoot
         => SubjectProgresses.FirstOrDefault(x => x.SubjectId == @event.SubjectId)
         .LessonProgresses.FirstOrDefault(x => x.LessonId == @event.LessonId)
         .Attempts.FirstOrDefault(x => x.Id == @event.AttemptId).AnswerQuestion(@event.CorrectAnswer);
+
+    #region FriendRequest
+    private void When(DomainEvent.FriendRequestCreatedStatus @event)
+        => Requests.Add(FriendRequest.Create(@event.RequestId, @event.FriendId));
+
+    private void When(DomainEvent.FriendRequestAcceptedStatus @event)
+        => Requests.FirstOrDefault(x => x.Id == @event.RequestId).ChangeStatus(@event.Status);
+
+    private void When(DomainEvent.FriendRequestRejectedStatus @event)
+        => Requests.FirstOrDefault(x => x.Id == @event.RequestId).ChangeStatus(@event.Status);
+
+    #endregion
 }

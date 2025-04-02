@@ -6,13 +6,14 @@ using Student.Shared.Commands;
 
 namespace Student.Application.UseCases.Commands
 {
-    public class AddFriendHandler(
+    public class RejectFriendRequestHandler(
         IStudentApplicationService applicationService,
-        ILogger logger) : ICommandHandler<AddFriendCommand>
+        ILogger logger) : ICommandHandler<RejectFriendRequestCommand>
     {
 
-        public async Task<Result> Handle(AddFriendCommand cmd, CancellationToken cancellationToken)
+        public async Task<Result> Handle(RejectFriendRequestCommand cmd, CancellationToken cancellationToken)
         {
+
             var studentResult = await applicationService.LoadAggregateAsync<Domain.Aggregates.Student>(cmd.StudentId, cancellationToken);
 
             if (studentResult.IsFailure)
@@ -20,10 +21,8 @@ namespace Student.Application.UseCases.Commands
 
             var student = studentResult.Value;
 
-            if(student.Friends.Any(x => x.StudentId == cmd.FriendId))
-                return Result.Failure(new Core.Shared.Errors.Error("FriendAlreadyAdded", "Vocês já são amigos!"));
+            student.RejectFriendRequest(cmd.RequestId);
 
-            student.AddFriend(cmd.FriendId);
             await applicationService.AppendEventsAsync(student, cancellationToken);
 
             return Result.Success();

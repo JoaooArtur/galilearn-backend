@@ -36,6 +36,15 @@ namespace Student.Domain
             Guid StudentId,
             Guid Friend,
             ulong Version) : Message, IDomainEvent;
+
+        public record XpAdded(
+            Guid StudentId,
+            int XpAmount,
+            bool LeveledUp,
+            ulong Version) : Message, IDomainEvent;
+        public record StreakAdded(
+            Guid StudentId,
+            ulong Version) : Message, IDomainEvent;
         public record SubjectProgressCreated(
             Guid Id,
             Guid SubjectId,
@@ -64,6 +73,7 @@ namespace Student.Domain
             Guid SubjectId,
             Guid LessonId,
             ulong Version) : Message, IDomainEvent;
+
         public record AttemptAnswered(
             Guid AttemptId,
             Guid StudentId,
@@ -73,16 +83,36 @@ namespace Student.Domain
             Guid AnswerId,
             bool CorrectAnswer,
             ulong Version) : Message, IDomainEvent;
+
         public record AttemptInProgressStatus(
             Guid AttemptId,
             Guid LessonId,
             Guid SubjectId,
             string Status,
             ulong Version) : Message, IDomainEvent;
+
         public record AttemptFinishedStatus(
             Guid AttemptId,
             Guid LessonId,
             Guid SubjectId,
+            string Status,
+            ulong Version) : Message, IDomainEvent;
+
+        public record FriendRequestCreatedStatus(
+            Guid RequestId,
+            Guid StudentId,
+            Guid FriendId,
+            ulong Version) : Message, IDomainEvent;
+
+        public record FriendRequestAcceptedStatus(
+            Guid RequestId,
+            Guid StudentId,
+            Guid FriendId,
+            string Status,
+            ulong Version) : Message, IDomainEvent;
+
+        public record FriendRequestRejectedStatus(
+            Guid RequestId,
             string Status,
             ulong Version) : Message, IDomainEvent;
     }

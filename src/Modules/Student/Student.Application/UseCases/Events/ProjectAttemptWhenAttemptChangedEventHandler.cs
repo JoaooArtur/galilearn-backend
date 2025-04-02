@@ -134,6 +134,13 @@ namespace Student.Application.UseCases.Events
                     student.ChangeLessonStatus(@event.SubjectId, @event.LessonId, LessonStatus.Finished);
 
                     await applicationService.AppendEventsAsync(student, cancellationToken);
+
+                    if (student.LastLessonAnswered?.Date != DateTimeOffset.Now.Date)
+                    {
+                        student.AddDayStreak();
+
+                        await applicationService.AppendEventsAsync(student, cancellationToken);
+                    }
                 }
 
             }

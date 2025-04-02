@@ -72,6 +72,10 @@ namespace Student.Application.UseCases.Events
                         student.ChangeSubjectStatus(@event.SubjectId, SubjectStatus.Finished);
 
                         await applicationService.AppendEventsAsync(student, cancellationToken);
+
+                        student.AddXp(50);
+
+                        await applicationService.AppendEventsAsync(student, cancellationToken);
                     }
                 }
             }

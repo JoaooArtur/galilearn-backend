@@ -9,6 +9,7 @@ namespace Student.Application.DependencyInjection
             => services.AddScoped<IProjectStudentWhenStudentChangedEventHandler, ProjectStudentWhenStudentChangedEventHandler>()
             .AddScoped<IProjectAttemptWhenAttemptChangedEventHandler, ProjectAttemptWhenAttemptChangedEventHandler>()
             .AddScoped<IProjectLessonProgressWhenLessonProgressChangedEventHandler, ProjectLessonProgressWhenLessonProgressChangedEventHandler>()
+            .AddScoped<IProjectFriendRequestWhenFriendRequestChangedEventHandler, ProjectFriendRequestWhenFriendRequestChangedEventHandler>()
             .AddScoped<IProjectSubjectProgressWhenSubjectProgressChangedEventHandler, ProjectSubjectProgressWhenSubjectProgressChangedEventHandler>();
     }
 }

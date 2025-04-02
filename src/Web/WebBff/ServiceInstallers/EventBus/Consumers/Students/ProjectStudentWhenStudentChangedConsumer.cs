@@ -10,6 +10,8 @@
         IConsumer<DomainEvent.StudentBlockedStatus>,
         IConsumer<DomainEvent.StudentDefaultStatus>,
         IConsumer<DomainEvent.FriendAdded>,
+        IConsumer<DomainEvent.XpAdded>,
+        IConsumer<DomainEvent.StreakAdded>,
         IConsumer<DomainEvent.StudentDeleted>
     {
         public Task Consume(ConsumeContext<DomainEvent.StudentCreated> context)
@@ -21,6 +23,10 @@
         public Task Consume(ConsumeContext<DomainEvent.StudentDefaultStatus> context)
             => eventHandler.Handle(context.Message, context.CancellationToken);
         public Task Consume(ConsumeContext<DomainEvent.StudentDeleted> context)
+            => eventHandler.Handle(context.Message, context.CancellationToken);
+        public Task Consume(ConsumeContext<DomainEvent.StreakAdded> context)
+            => eventHandler.Handle(context.Message, context.CancellationToken);
+        public Task Consume(ConsumeContext<DomainEvent.XpAdded> context)
             => eventHandler.Handle(context.Message, context.CancellationToken);
         public Task Consume(ConsumeContext<DomainEvent.FriendAdded> context)
             => eventHandler.Handle(context.Message, context.CancellationToken);

@@ -20,6 +20,12 @@ namespace WebBff.ServiceInstallers.EventBus.Consumers.Students
             rabbitMqBusFactoryConfigurator.ConfigureEventReceiveEndpoint<ProjectStudentWhenStudentChangedConsumer, StudentDomainEvent.StudentDefaultStatus>(registrationContext, MODULE_NAME);
             rabbitMqBusFactoryConfigurator.ConfigureEventReceiveEndpoint<ProjectStudentWhenStudentChangedConsumer, StudentDomainEvent.StudentDeleted>(registrationContext, MODULE_NAME);
             rabbitMqBusFactoryConfigurator.ConfigureEventReceiveEndpoint<ProjectStudentWhenStudentChangedConsumer, StudentDomainEvent.FriendAdded>(registrationContext, MODULE_NAME);
+            rabbitMqBusFactoryConfigurator.ConfigureEventReceiveEndpoint<ProjectStudentWhenStudentChangedConsumer, StudentDomainEvent.XpAdded>(registrationContext, MODULE_NAME);
+            rabbitMqBusFactoryConfigurator.ConfigureEventReceiveEndpoint<ProjectStudentWhenStudentChangedConsumer, StudentDomainEvent.StreakAdded>(registrationContext, MODULE_NAME);
+
+            rabbitMqBusFactoryConfigurator.ConfigureEventReceiveEndpoint<ProjectFriendRequestWhenFriendRequestChangedConsumer, StudentDomainEvent.FriendRequestCreatedStatus>(registrationContext, MODULE_NAME);
+            rabbitMqBusFactoryConfigurator.ConfigureEventReceiveEndpoint<ProjectFriendRequestWhenFriendRequestChangedConsumer, StudentDomainEvent.FriendRequestAcceptedStatus>(registrationContext, MODULE_NAME);
+            rabbitMqBusFactoryConfigurator.ConfigureEventReceiveEndpoint<ProjectFriendRequestWhenFriendRequestChangedConsumer, StudentDomainEvent.FriendRequestRejectedStatus>(registrationContext, MODULE_NAME);
 
             rabbitMqBusFactoryConfigurator.ConfigureEventReceiveEndpoint<ProjectAttemptWhenAttemptChangedConsumer, StudentDomainEvent.AttemptCreated>(registrationContext, MODULE_NAME);
             rabbitMqBusFactoryConfigurator.ConfigureEventReceiveEndpoint<ProjectAttemptWhenAttemptChangedConsumer, StudentDomainEvent.AttemptAnswered>(registrationContext, MODULE_NAME);

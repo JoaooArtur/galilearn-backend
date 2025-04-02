@@ -1,6 +1,5 @@
 ﻿using Ardalis.ApiEndpoints;
 using Asp.Versioning;
-using Common.Policies;
 using Core.Endpoints.Extensions;
 using Core.Shared.Results;
 using MediatR;
@@ -12,28 +11,25 @@ using WebBff.Endpoints.Students.Requests;
 
 namespace WebBff.Endpoints.Students
 {
-    public sealed class SignUpEndpoint(ISender sender) : EndpointBaseAsync
-        .WithRequest<SignUpRequest>
+    public sealed class SendFriendRequestEndpoint(ISender sender) : EndpointBaseAsync
+        .WithRequest<SendFriendRequestRequest>
         .WithActionResult
     {
         [ApiVersion("1.0")]
-        [HttpPost(StudentsRoutes.SignUp)]
+        [HttpPost(StudentsRoutes.SendFriendRequest)]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         [SwaggerOperation(
-            Summary = "Create a new Student.",
-            Description = "Creates a new Student based on the provided request data.",
+            Summary = "Create a friend request.",
+            Description = "Creates a new friend request based on the provided request data.",
             Tags = [Tags.Students])]
         public override async Task<ActionResult> HandleAsync(
-        SignUpRequest request,
+        SendFriendRequestRequest request,
         CancellationToken cancellationToken = default) =>
         await Result.Create(request)
-            .Map(signUpRequest => new SignUpCommand(
-                signUpRequest.Name,
-                signUpRequest.Email,
-                signUpRequest.Password,
-                signUpRequest.Phone,
-                signUpRequest.DateOfBirth))
+            .Map(sendFriendRequest => new SendFriendRequestCommand(
+                sendFriendRequest.StudentId,
+                sendFriendRequest.FriendId))
             .Bind(command => sender.Send(command, cancellationToken))
             .Match(Ok, this.HandleFailure);
     }

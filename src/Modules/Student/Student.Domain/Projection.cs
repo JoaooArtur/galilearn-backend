@@ -10,9 +10,23 @@ namespace Student.Domain
             string Phone,
             string Email,
             string Status,
+            int Level,
+            int Xp,
+            int NextLevelXPNeeded,
+            int DaysStreak,
+            List<Guid> Friends,
             DateTimeOffset DateOfBirth,
+            DateTimeOffset? LastLessonAnswered,
             DateTimeOffset CreatedAt) : IProjection
         { }
+        public record FriendRequests(
+            Guid Id,
+            Guid StudentId,
+            Guid FriendId,
+            string Status,
+            DateTimeOffset CreatedAt) : IProjection
+        { }
+
         public record Attempt(
             Guid Id,
             Guid StudentId,
