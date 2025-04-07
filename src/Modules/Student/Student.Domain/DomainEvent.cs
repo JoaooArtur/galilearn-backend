@@ -7,6 +7,7 @@ namespace Student.Domain
         public record StudentCreated(
             Guid StudentId,
             string Email,
+            string Password,
             string Name,
             string Phone,
             string Status,

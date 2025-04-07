@@ -1,6 +1,7 @@
 ﻿using Core.Application.Messaging;
 using Core.Shared.Results;
 using Serilog;
+using Student.Application.Extensions;
 using Student.Application.Services;
 using Student.Shared.Commands;
 using Student.Shared.Response;
@@ -15,7 +16,7 @@ namespace Student.Application.UseCases.Commands
 
         public async Task<Result<IdentifierResponse>> Handle(SignUpCommand cmd, CancellationToken cancellationToken)
         {
-            var student = StudentAggregate.Create(cmd.Name, cmd.Email, cmd.Password, cmd.Phone, cmd.DateOfBirth);
+            var student = StudentAggregate.Create(cmd.Name, cmd.Email, cmd.Password.HashMD5(), cmd.Phone, cmd.DateOfBirth);
 
             await applicationService.AppendEventsAsync(student, cancellationToken);
 

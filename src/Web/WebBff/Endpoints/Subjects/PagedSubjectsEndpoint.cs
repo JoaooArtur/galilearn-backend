@@ -5,6 +5,7 @@ using Core.Domain.Primitives;
 using Core.Endpoints.Extensions;
 using Core.Shared.Results;
 using MediatR;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http.HttpResults;
 using Microsoft.AspNetCore.Mvc;
@@ -28,7 +29,7 @@ namespace WebBff.Endpoints.Subjects
             Summary = "List subjects.",
             Description = "List subjects based on the provided request data.",
             Tags = [Tags.Subjects])]
-        //[Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme, Policy = Policies.Student)]
+        [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme, Policy = Policies.Student)]
         public override async Task<ActionResult<IPagedResult<PagedSubjectResponse>>> HandleAsync(PagedSubjectsRequest request, CancellationToken cancellationToken = default)
             => await Result.Create(request)
             .Map(listSubjectsRequest => new PagedSubjectQuery(

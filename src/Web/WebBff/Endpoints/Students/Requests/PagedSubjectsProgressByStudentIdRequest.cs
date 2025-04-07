@@ -5,6 +5,8 @@ namespace WebBff.Endpoints.Students.Requests
 {
     public class PagedSubjectsProgressByStudentIdRequest
     {
+        [FromHeader(Name = StudentsRoutes.Token)]
+        public string Token { get; set; }
         [FromRoute(Name = StudentsRoutes.StudentId)]
         public Guid StudentId { get; set; }
 

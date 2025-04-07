@@ -8,8 +8,8 @@ namespace Core.Endpoints.Extensions
     /// </summary>
     public static class ClaimsPrincipalExtensions
     {
-        public static Guid ExtractAuth0IdFromToken(string token)
-            => Guid.Parse(token.GetIdentityProviderId("sub").Split('|')[1]);
+        public static Guid ExtractIdFromToken(string token)
+            => Guid.Parse(token.GetIdentityProviderId("Id"));
         
 
         /// <summary>

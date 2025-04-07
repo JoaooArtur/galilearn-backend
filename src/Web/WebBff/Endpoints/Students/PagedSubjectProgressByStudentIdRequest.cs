@@ -1,9 +1,12 @@
 ﻿using Ardalis.ApiEndpoints;
 using Asp.Versioning;
+using Common.Policies;
 using Core.Domain.Primitives;
 using Core.Endpoints.Extensions;
 using Core.Shared.Results;
 using MediatR;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http.HttpResults;
 using Microsoft.AspNetCore.Mvc;
 using Student.Shared.Queries;
@@ -29,11 +32,11 @@ namespace WebBff.Endpoints.Students
             Summary = "List subjects progress by student Id.",
             Description = "List subjects progress by student id based on the provided request data.",
             Tags = [Tags.Students])]
-        //[Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme, Policy = Policies.Student)]
+        [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme, Policy = Policies.Student)]
         public override async Task<ActionResult<IPagedResult<SubjectsProgressByStudentIdResponse>>> HandleAsync(PagedSubjectsProgressByStudentIdRequest request, CancellationToken cancellationToken = default)
             => await Result.Create(request)
             .Map(listLessonsBySubjectIdRequest => new PagedSubjectProgressByStudentIdQuery(
-                listLessonsBySubjectIdRequest.StudentId,
+                ClaimsPrincipalExtensions.ExtractIdFromToken(listLessonsBySubjectIdRequest.Token),
                 new(listLessonsBySubjectIdRequest.Limit, listLessonsBySubjectIdRequest.Offset)))
             .Bind(query => sender.Send(query, cancellationToken))
             .Match(Ok, this.HandleFailure);

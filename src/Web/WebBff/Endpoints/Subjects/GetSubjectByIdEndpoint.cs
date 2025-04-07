@@ -4,6 +4,7 @@ using Common.Policies;
 using Core.Endpoints.Extensions;
 using Core.Shared.Results;
 using MediatR;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http.HttpResults;
 using Microsoft.AspNetCore.Mvc;
@@ -28,8 +29,8 @@ namespace WebBff.Endpoints.Subjects
             Summary = "Get Subject By SubjectId",
             Description = "Get subject By SubjectId based on the provided request data.",
             Tags = [Tags.Subjects])]
-        
-        //[Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme, Policy = Policies.Customer)]
+
+        [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme, Policy = Policies.Student)]
         public override async Task<ActionResult<SubjectResponse>> HandleAsync(
         GetSubjectByIdRequest request,
         CancellationToken cancellationToken = default) =>

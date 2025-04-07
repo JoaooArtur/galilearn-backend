@@ -9,7 +9,7 @@ namespace WebBff.Endpoints.Students.Requests
     /// <param name="Name">The name.</param>
     public class ListStudentsByNameRequest
     {
-            [FromQuery]
-            public string Name { get; set; }
+        [FromQuery]
+        public string Name { get; set; }
     }
 }

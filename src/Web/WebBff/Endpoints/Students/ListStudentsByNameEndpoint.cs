@@ -1,8 +1,11 @@
 ﻿using Ardalis.ApiEndpoints;
 using Asp.Versioning;
+using Common.Policies;
 using Core.Endpoints.Extensions;
 using Core.Shared.Results;
 using MediatR;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Student.Shared.Queries;
 using Student.Shared.Response;
@@ -24,7 +27,7 @@ namespace WebBff.Endpoints.Students
             Summary = "List students by name.",
             Description = "List students by name based on the provided request data.",
             Tags = [Tags.Students])]
-        //[Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme, Policy = Policies.Student)]
+        [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme, Policy = Policies.Student)]
         public override async Task<ActionResult<List<StudentsByNameResponse>>> HandleAsync(ListStudentsByNameRequest request, CancellationToken cancellationToken = default)
             => await Result.Create(request)
             .Map(listStudentsRequest => new ListStudentsByNameQuery(

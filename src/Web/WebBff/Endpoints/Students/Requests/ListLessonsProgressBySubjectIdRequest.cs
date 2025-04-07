@@ -10,6 +10,8 @@ namespace WebBff.Endpoints.Students.Requests
     /// <param name="SubjectId">The SubjectId.</param>
     public class ListLessonsProgressBySubjectIdRequest
     {
+        [FromHeader(Name = StudentsRoutes.Token)]
+        public string Token { get; set; }
         [FromRoute(Name = StudentsRoutes.StudentId)]
         public Guid StudentId { get; set; }
         [FromRoute(Name = StudentsRoutes.SubjectId)]

@@ -1,11 +1,22 @@
 using Common.DependencyInjection.Extensions;
+using Core.Application.Options;
 using Core.Infrastructure.Extensions;
 using CorrelationId;
 using HealthChecks.UI.Client;
 using Microsoft.AspNetCore.Diagnostics.HealthChecks;
 using Microsoft.AspNetCore.HttpLogging;
 using Serilog;
+using Student.Application.Services;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
 using WebBff.Extensions;
+using Microsoft.IdentityModel.Tokens;
+using Core.Application.Handlers;
+using Microsoft.AspNetCore.Authorization;
+using Core.Application.Requirements;
+using Microsoft.Extensions.Options;
+using System.IdentityModel.Tokens.Jwt;
+using System.Text;
+using Microsoft.Extensions.DependencyInjection;
 
 WebApplicationBuilder builder = WebApplication.CreateBuilder(args);
 
@@ -23,6 +34,41 @@ builder.Services
 #if !DEBUG
 builder.ConfigureSystemsManager();
 #endif
+
+builder.Services.Configure<JwtOptions>(
+    builder.Configuration.GetSection("JwtOptions"));
+
+// Injeta o TokenService
+builder.Services.AddTransient<TokenService>();
+builder.Services.AddTransient<IAuthorizationHandler, HasRoleHandler>();
+JwtSecurityTokenHandler.DefaultInboundClaimTypeMap.Clear();
+
+builder.Services.AddAuthentication("Bearer")
+    .AddJwtBearer("Bearer", options =>
+    {
+        options.TokenValidationParameters = new TokenValidationParameters
+        {
+            ValidateIssuer = false,
+            ValidIssuer = "https://api.gallilearn.com.br/",
+            ValidateAudience = false,
+            ValidAudience = "gallilearn-portal",
+            RoleClaimType = "Role",
+            NameClaimType = "UserName",
+            IssuerSigningKey = new SymmetricSecurityKey(
+                    Encoding.UTF8.GetBytes(builder.Services.BuildServiceProvider().GetRequiredService<IOptions<JwtOptions>>().Value.Key))
+        };
+    });
+
+builder.Services.AddAuthorization(options =>
+{
+    var serviceProvider = builder.Services.BuildServiceProvider();
+    var jwtOptions = serviceProvider.GetRequiredService<IOptions<JwtOptions>>().Value;
+
+    if (jwtOptions.Policies != null)
+        foreach (var policyName in jwtOptions.Policies)
+            options.AddPolicy(policyName, policy => policy.Requirements.Add(
+                new HasRoleRequirement(policyName.Split(',').ToList(), jwtOptions.Issuer)));
+}); ;
 
 builder.Services
     .AddHttpContextAccessor();
@@ -101,6 +147,7 @@ app.UseSwagger()
             .AllowAnyOrigin());
 
 app.UseCorrelationId();
+app.UseAuthentication();
 app.UseAuthorization();
 app.UseSerilogRequestLogging()
    .UseHttpsRedirection();

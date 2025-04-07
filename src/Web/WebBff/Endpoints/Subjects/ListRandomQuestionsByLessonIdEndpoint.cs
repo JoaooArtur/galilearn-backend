@@ -1,10 +1,13 @@
 ﻿using Ardalis.ApiEndpoints;
 using Asp.Versioning;
+using Common.Policies;
 using Core.Domain.Primitives;
 using Core.Endpoints.Extensions;
 using Core.Shared.Extensions;
 using Core.Shared.Results;
 using MediatR;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Subject.Shared.Queries;
 using Subject.Shared.Response;
@@ -26,7 +29,7 @@ namespace WebBff.Endpoints.Subjects
             Summary = "List random questions by lesson Id.",
             Description = "List random questions based on the provided request data.",
             Tags = [Tags.Subjects])]
-        //[Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme, Policy = Policies.Student)]
+        [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme, Policy = Policies.Student)]
         public override async Task<ActionResult<List<RandomQuestionsByLessonIdResponse>>> HandleAsync(ListRandomQuestionsByLessonIdRequest request, CancellationToken cancellationToken = default)
             => await Result.Create(request)
             .Map(listrandomQuestionsRequest => new ListRandomQuestionsByLessonIdQuery(listrandomQuestionsRequest.LessonId))

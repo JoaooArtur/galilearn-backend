@@ -1,8 +1,11 @@
 ﻿using Ardalis.ApiEndpoints;
 using Asp.Versioning;
+using Common.Policies;
 using Core.Endpoints.Extensions;
 using Core.Shared.Results;
 using MediatR;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Subject.Shared.Queries;
 using Subject.Shared.Response;
@@ -26,7 +29,7 @@ namespace WebBff.Endpoints.Subjects
             Description = "Get lesson By LessonId based on the provided request data.",
             Tags = [Tags.Subjects])]
 
-        //[Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme, Policy = Policies.Customer)]
+        [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme, Policy = Policies.Student)]
         public override async Task<ActionResult<LessonResponse>> HandleAsync(
         GetLessonByIdRequest request,
         CancellationToken cancellationToken = default) =>

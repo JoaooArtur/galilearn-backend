@@ -10,6 +10,7 @@
 		<PackageReference Include="ClosedXML" />
 		<PackageReference Include="Discord.Net" />
 		<PackageReference Include="ExcelMapper" />
+		<PackageReference Include="Microsoft.AspNetCore.Authentication.JwtBearer" />
 		<PackageReference Include="Microsoft.Extensions.Configuration.Abstractions" />
 		<PackageReference Include="Microsoft.Extensions.DependencyInjection.Abstractions" />
 		<PackageReference Include="Masking.Serilog" />

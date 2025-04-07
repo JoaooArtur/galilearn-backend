@@ -11,6 +11,8 @@ namespace WebBff.Endpoints.Students.Requests
         public Guid SubjectId { get; set; }
         [FromRoute(Name = StudentsRoutes.LessonId)]
         public Guid LessonId { get; set; }
+        [FromHeader(Name = StudentsRoutes.Token)]
+        public string Token { get; set; }
         [FromRoute(Name = StudentsRoutes.StudentId)]
         public Guid StudentId { get; set; }
         public Guid QuestionId { get; set; }

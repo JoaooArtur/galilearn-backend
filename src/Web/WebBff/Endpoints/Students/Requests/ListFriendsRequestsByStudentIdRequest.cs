@@ -9,6 +9,8 @@ namespace WebBff.Endpoints.Students.Requests
     /// <param name="StudentId">The StudentId.</param>
     public class ListFriendsRequestsByStudentIdRequest
     {
+        [FromHeader(Name = StudentsRoutes.Token)]
+        public string Token { get; set; }
         [FromRoute(Name = StudentsRoutes.StudentId)]
         public Guid StudentId { get; set; }
     }

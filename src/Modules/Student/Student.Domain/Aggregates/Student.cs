@@ -11,6 +11,7 @@ public class Student : AggregateRoot
     public string Name { get; private set; }
     public string Phone { get; private set; }
     public string Email { get; private set; }
+    public string Password { get; private set; }
     public int Level { get; private set; } = 1;
     public int DayStreak { get; private set; } = 0;
     public int Xp { get; private set; }
@@ -29,6 +30,7 @@ public class Student : AggregateRoot
         Student.RaiseEvent<DomainEvent.StudentCreated>(version => new(
             Guid.NewGuid(),
             email,
+            password,
             name,
             phone,
             StudentStatus.PendingProfile,
@@ -133,6 +135,7 @@ public class Student : AggregateRoot
     {
         Id = @event.StudentId;
         Name = @event.Name;
+        Password = @event.Password;
         Email = @event.Email;
         DateOfBirth = @event.DateOfBirth;
         Phone = @event.Phone;
