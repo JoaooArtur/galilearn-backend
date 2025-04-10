@@ -6,7 +6,7 @@ on:
 
 jobs:
   call-workflow:
-    uses: JoaooArtur/gallilearn-pipelines/workflow_fargate.yaml@main
+    uses: JoaooArtur/gallilearn-pipelines/.github/workflows/workflow_fargate.yaml@main
     with:
       staging-aws: 123
       production-aws: 123
