@@ -1,0 +1,20 @@
+name: Gallilearn BFF Web
+
+on:
+  pull_request:
+    types: [opened, reopened, synchronize, closed]
+
+jobs:
+  call-workflow:
+    uses: JoaooArtur/gallilearn-pipelines/.github/workflows/workflow_fargate.yaml@monolith
+    with:
+      staging-aws: 123
+      production-aws: 123
+      product: "gallilearn"
+      service-name: "gallilearn-webbff"
+      hasEmail: false
+      path: ./src/Web
+      project: WebBff
+      test: tests/WebBff.Tests
+    secrets:
+      packages-token: "a" # ${{ secrets.PACKAGES_TOKEN }}
