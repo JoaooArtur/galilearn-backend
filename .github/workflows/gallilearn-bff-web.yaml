@@ -6,7 +6,7 @@ on:
 
 jobs:
   call-workflow:
-    uses: JoaooArtur/gallilearn-pipelines/.github/workflows/workflow_fargate.yaml@monolith
+    uses: JoaooArtur/gallilearn-pipelines/.github/workflows/workflow_fargate.yaml@main
     with:
       staging-aws: 123
       production-aws: 123
@@ -18,3 +18,5 @@ jobs:
       test: tests/WebBff.Tests
     secrets:
       packages-token: "a" # ${{ secrets.PACKAGES_TOKEN }}
+      app-id: "a" # ${{ secrets.APP_ID }}
+      app-private-key: "a" # ${{ secrets.APP_PRIVATE_KEY }} 
