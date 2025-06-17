@@ -33,7 +33,7 @@ public class Student : AggregateRoot
             password,
             name,
             phone,
-            StudentStatus.PendingProfile,
+            StudentStatus.Active,
             dateOfBirth,
             Student.CreatedAt,
             version));
@@ -175,28 +175,28 @@ public class Student : AggregateRoot
     private void When(DomainEvent.SubjectProgressCreated @event)
         => SubjectProgresses.Add(SubjectProgress.Create(@event.Id, @event.SubjectId));
     private void When(DomainEvent.LessonProgressCreated @event)
-        => SubjectProgresses.FirstOrDefault(x => x.SubjectId == @event.SubjectId).LessonProgresses.Add(LessonProgress.Create(@event.Id, @event.LessonId));
+        => SubjectProgresses.FirstOrDefault(x => x.SubjectId == @event.SubjectId)?.LessonProgresses.Add(LessonProgress.Create(@event.Id, @event.LessonId));
     private void When(DomainEvent.AttemptCreated @event)
-        => SubjectProgresses.FirstOrDefault(x => x.SubjectId == @event.SubjectId)
-        .LessonProgresses.FirstOrDefault(x => x.LessonId == @event.LessonId)
-        .Attempts.Add(Attempt.Create(@event.AttemptId, @event.LessonId));
+        => SubjectProgresses.FirstOrDefault(x => x.SubjectId == @event.SubjectId)?
+        .LessonProgresses.FirstOrDefault(x => x.LessonId == @event.LessonId)?
+        .Attempts?.Add(Attempt.Create(@event.AttemptId, @event.LessonId));
     private void When(DomainEvent.AttemptFinishedStatus @event)
-        => SubjectProgresses.FirstOrDefault(x => x.SubjectId == @event.SubjectId)
-        .LessonProgresses.FirstOrDefault(x => x.Id == @event.LessonId)
-        .Attempts.FirstOrDefault(x => x.Id == @event.AttemptId).ChangeStatus(@event.Status);
+        => SubjectProgresses.FirstOrDefault(x => x.SubjectId == @event.SubjectId)?
+        .LessonProgresses.FirstOrDefault(x => x.Id == @event.LessonId)?
+        .Attempts.FirstOrDefault(x => x.Id == @event.AttemptId)?.ChangeStatus(@event.Status);
     private void When(DomainEvent.AttemptInProgressStatus @event)
-        => SubjectProgresses.FirstOrDefault(x => x.SubjectId == @event.SubjectId)
-        .LessonProgresses.FirstOrDefault(x => x.LessonId == @event.LessonId)
-        .Attempts.FirstOrDefault(x => x.Id == @event.AttemptId).ChangeStatus(@event.Status);
+        => SubjectProgresses.FirstOrDefault(x => x.SubjectId == @event.SubjectId)?
+        .LessonProgresses.FirstOrDefault(x => x.LessonId == @event.LessonId)?
+        .Attempts.FirstOrDefault(x => x.Id == @event.AttemptId)?.ChangeStatus(@event.Status);
     private void When(DomainEvent.LessonProgressFinishedStatus @event)
-        => SubjectProgresses.FirstOrDefault(x => x.SubjectId == @event.SubjectId)
-        .LessonProgresses.FirstOrDefault(x => x.Id == @event.LessonId).ChangeStatus(@event.Status);
+        => SubjectProgresses.FirstOrDefault(x => x.SubjectId == @event.SubjectId)?
+        .LessonProgresses.FirstOrDefault(x => x.Id == @event.LessonId)?.ChangeStatus(@event.Status);
     private void When(DomainEvent.SubjectProgressFinishedStatus @event)
-        => SubjectProgresses.FirstOrDefault(x => x.SubjectId == @event.SubjectId).ChangeStatus(@event.Status);
+        => SubjectProgresses?.FirstOrDefault(x => x.SubjectId == @event.SubjectId)?.ChangeStatus(@event.Status);
     private void When(DomainEvent.AttemptAnswered @event)
-        => SubjectProgresses.FirstOrDefault(x => x.SubjectId == @event.SubjectId)
-        .LessonProgresses.FirstOrDefault(x => x.LessonId == @event.LessonId)
-        .Attempts.FirstOrDefault(x => x.Id == @event.AttemptId).AnswerQuestion(@event.CorrectAnswer);
+        => SubjectProgresses.FirstOrDefault(x => x.SubjectId == @event.SubjectId)?
+        .LessonProgresses.FirstOrDefault(x => x.LessonId == @event.LessonId)?
+        .Attempts.FirstOrDefault(x => x.Id == @event.AttemptId)?.AnswerQuestion(@event.CorrectAnswer);
 
     #region FriendRequest
     private void When(DomainEvent.FriendRequestCreatedStatus @event)
@@ -206,7 +206,7 @@ public class Student : AggregateRoot
         => Requests.FirstOrDefault(x => x.Id == @event.RequestId).ChangeStatus(@event.Status);
 
     private void When(DomainEvent.FriendRequestRejectedStatus @event)
-        => Requests.FirstOrDefault(x => x.Id == @event.RequestId).ChangeStatus(@event.Status);
+        => Requests.FirstOrDefault(x => x.Id == @event.RequestId)?.ChangeStatus(@event.Status);
 
     #endregion
 }

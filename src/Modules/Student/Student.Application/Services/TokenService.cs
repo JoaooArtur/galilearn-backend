@@ -8,7 +8,7 @@ using System.Text;
 
 namespace Student.Application.Services
 {
-    public class TokenService
+    public class TokenService : ITokenService
     {
         private readonly JwtOptions _jwtOptions;
 

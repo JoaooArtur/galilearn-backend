@@ -68,11 +68,11 @@ public class Subject : AggregateRoot
     private void When(DomainEvent.LessonAdded @event)
         => Lessons.Add(Lesson.Create(@event.LessonId, @event.Title, @event.Content, @event.Index));
     private void When(DomainEvent.QuestionAdded @event)
-        => Lessons.FirstOrDefault(x => x.Id == @event.LessonId)
-        .Questions.Add(Question.Create(@event.QuestionId, @event.Text, @event.Level));
+        => Lessons?.FirstOrDefault(x => x.Id == @event.LessonId)?
+        .Questions?.Add(Question.Create(@event.QuestionId, @event.Text, @event.Level));
     private void When(DomainEvent.AnswerOptionAdded @event)
-        => Lessons.FirstOrDefault(x => x.Id == @event.LessonId)
-        .Questions.FirstOrDefault(x => x.Id == @event.QuestionId)
+        => Lessons?.FirstOrDefault(x => x.Id == @event.LessonId)?
+        .Questions.FirstOrDefault(x => x.Id == @event.QuestionId)?
         .AddAnswer(@event.AnswerOptionId, @event.Text, @event.IsRightAnswer);
 
 }

@@ -39,7 +39,7 @@ builder.Services.Configure<JwtOptions>(
     builder.Configuration.GetSection("JwtOptions"));
 
 // Injeta o TokenService
-builder.Services.AddTransient<TokenService>();
+builder.Services.AddTransient<ITokenService, TokenService>();
 builder.Services.AddTransient<IAuthorizationHandler, HasRoleHandler>();
 JwtSecurityTokenHandler.DefaultInboundClaimTypeMap.Clear();
 
