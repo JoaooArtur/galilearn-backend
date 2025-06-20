@@ -10,7 +10,7 @@ using Subject.Domain;
 using Subject.Persistence.Projections;
 using Xunit;
 
-namespace Student.Tests.Subject.Events
+namespace Subject.Tests.Application.Events
 {
     public class ProjectSubjectWhenSubjectChangedEventHandlerTests
     {

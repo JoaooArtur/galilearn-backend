@@ -14,7 +14,7 @@ using MongoDB.Bson.Serialization;
 using MongoDB.Driver;
 using Subject.Domain.Enumerations;
 
-namespace Student.Tests.Subject.Events
+namespace Subject.Tests.Application.Events
 {
     public class ProjectQuestionWhenQuestionChangedEventHandlerTests
     {

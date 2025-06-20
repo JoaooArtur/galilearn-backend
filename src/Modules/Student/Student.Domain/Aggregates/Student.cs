@@ -157,13 +157,13 @@ public class Student : AggregateRoot
 
         if (@event.LeveledUp)
         {
-            Level = Level++;
+            Level = Level + 1;
             NextLevelXPNeeded = 100 * Level;
         }
     }
     private void When(DomainEvent.StreakAdded @event)
     {
-        DayStreak = DayStreak++;
+        DayStreak = DayStreak + 1;
         LastLessonAnswered = DateTimeOffset.Now;
     }
 

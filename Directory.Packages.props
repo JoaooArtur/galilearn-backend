@@ -32,6 +32,7 @@
     <PackageVersion Include="AspNetCore.HealthChecks.UI.PostgreSQL.Storage" Version="8.0.1" />
     <PackageVersion Include="AWSSDK.S3" Version="3.7.415.8" />
     <PackageVersion Include="ClosedXML" Version="0.104.2" />
+    <PackageVersion Include="CodecovUploader" Version="0.8.0" />
     <!--CorrelationId-->
     <PackageVersion Include="CorrelationId" Version="3.0.1" />
     <!--Coverlet-->

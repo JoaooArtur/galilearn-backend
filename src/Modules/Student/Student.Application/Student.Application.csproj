@@ -1,5 +1,6 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
   <ItemGroup>
+    <ProjectReference Include="..\..\..\Common\Common\Common.csproj" />
     <ProjectReference Include="..\..\Subject\Subject.Shared\Subject.Shared.csproj" />
     <ProjectReference Include="..\Student.Domain\Student.Domain.csproj" />
     <ProjectReference Include="..\Student.Persistence\Student.Persistence.csproj" />

@@ -8,6 +8,7 @@
 		<PackageReference Include="AspNetCore.HealthChecks.UI.InMemory.Storage" />
 		<PackageReference Include="AWSSDK.S3" />
 		<PackageReference Include="ClosedXML" />
+		<PackageReference Include="CodecovUploader" />
 		<PackageReference Include="Discord.Net" />
 		<PackageReference Include="ExcelMapper" />
 		<PackageReference Include="Microsoft.AspNetCore.Authentication.JwtBearer" />

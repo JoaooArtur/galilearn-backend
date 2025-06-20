@@ -13,7 +13,7 @@ using SubjectAggregate = Subject.Domain.Aggregates.Subject;
 using Subject.Shared.Response;
 using Xunit;
 
-namespace Student.Tests.Subject.Commands
+namespace Subject.Tests.Application.Commands
 {
     public class AddAnswerOptionHandlerTests
     {

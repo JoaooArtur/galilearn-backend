@@ -14,7 +14,7 @@ using Subject.Shared.Response;
 using Xunit;
 using Subject.Domain.Enumerations;
 
-namespace Student.Tests.Subject.Commands
+namespace Subject.Tests.Application.Commands
 {
     public class CreateQuestionHandlerTests
     {
