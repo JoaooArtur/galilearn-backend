@@ -20,4 +20,3 @@ jobs:
       packages-token: "a" # ${{ secrets.PACKAGES_TOKEN }}
       app-id: "a" # ${{ secrets.APP_ID }}
       app-private-key: "a" # ${{ secrets.APP_PRIVATE_KEY }} 
-
