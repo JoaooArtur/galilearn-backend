@@ -92,17 +92,17 @@ namespace WebBff.Tests.Modules.Subject.Application.Events
 
             _projectionMock
                 .Setup(p => p.ReplaceInsertAsync(It.IsAny<Projection.Subject>(), It.IsAny<CancellationToken>()))
-                .ThrowsAsync(new Exception("Erro simulado"));
+                .ThrowsAsync(new Exception($"Falha ao criar o assunto: {@event.SubjectId}."));
 
             // Act
             Func<Task> act = async () => await _handler.Handle(@event);
 
             // Assert
-            await act.Should().ThrowAsync<Exception>().WithMessage("Erro simulado");
+            await act.Should().ThrowAsync<Exception>().WithMessage($"Falha ao criar o assunto: {@event.SubjectId}.");
 
             _loggerMock.Verify(l => l.Error(
                 It.IsAny<Exception>(),
-                $"Falha ao criar o assunto: {@event.SubjectId}."), Times.Once);
+                "Falha ao criar o assunto: {SubjectId}.", @event.SubjectId), Times.Once);
         }
 
         [Fact]
@@ -113,17 +113,17 @@ namespace WebBff.Tests.Modules.Subject.Application.Events
 
             _projectionMock
                 .Setup(p => p.DeleteAsync(It.IsAny<Expression<Func<Projection.Subject, bool>>>(), It.IsAny<CancellationToken>()))
-                .ThrowsAsync(new Exception("Falha ao deletar"));
+                .ThrowsAsync(new Exception($"Falha ao deletar o assunto: {@event.SubjectId}."));
 
             // Act
             Func<Task> act = async () => await _handler.Handle(@event);
 
             // Assert
-            await act.Should().ThrowAsync<Exception>().WithMessage("Falha ao deletar");
+            await act.Should().ThrowAsync<Exception>().WithMessage($"Falha ao deletar o assunto: {@event.SubjectId}.");
 
             _loggerMock.Verify(l => l.Error(
                 It.IsAny<Exception>(),
-                $"Falha ao deletar o assunto: {@event.SubjectId}."), Times.Once);
+                "Falha ao deletar o assunto: {SubjectId}.", @event.SubjectId), Times.Once);
         }
     }
 }
