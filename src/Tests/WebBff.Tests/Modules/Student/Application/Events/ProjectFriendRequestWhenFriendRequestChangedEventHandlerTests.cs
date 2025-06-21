@@ -140,7 +140,7 @@ public class ProjectFriendRequestWhenFriendRequestChangedEventHandlerTests
 
         Func<Task> act = async () => await _handler.Handle(@event, CancellationToken.None);
 
-        await act.Should().ThrowAsync<Exception>().WithMessage("Fail");
+        await act.Should().ThrowAsync<Exception>().WithMessage($"Falha ao aceitar solicitação de amizade: {requestId}.");
     }
 }
 

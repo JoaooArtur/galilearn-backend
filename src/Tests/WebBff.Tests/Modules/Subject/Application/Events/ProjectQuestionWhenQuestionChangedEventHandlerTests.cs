@@ -135,17 +135,18 @@ namespace WebBff.Tests.Modules.Subject.Application.Events
             );
 
             _projectionMock.Setup(p => p.GetCollection())
-                .Throws(new Exception("Erro simulado"));
+                .Throws(new Exception($"Falha ao adicionar a resposta:{@event.AnswerOptionId} para a questão: {@event.QuestionId}."));
 
             // Act
             Func<Task> act = async () => await _handler.Handle(@event);
 
             // Assert
-            await act.Should().ThrowAsync<Exception>().WithMessage("Erro simulado");
+            await act.Should().ThrowAsync<Exception>().WithMessage($"Falha ao adicionar a resposta:{@event.AnswerOptionId} para a questão: {@event.QuestionId}.");
 
             _loggerMock.Verify(l => l.Error(
                 It.IsAny<Exception>(),
-                $"Falha ao adicionar a resposta:{@event.AnswerOptionId} para a questão: {@event.QuestionId}."), Times.Once);
+                "Falha ao adicionar a resposta:{AnswerOptionId} para a questão: {QuestionId}.",
+                @event.AnswerOptionId, @event.QuestionId), Times.Once);
         }
     }
 }

@@ -4,21 +4,20 @@ on:
   pull_request:
     types: [opened, reopened, synchronize, closed]
 
+permissions:
+  contents: read
+  id-token: write
+  issues: write
+  pull-requests: write
+  
 jobs:
   call-workflow:
     uses: JoaooArtur/gallilearn-pipelines/.github/workflows/workflow_fargate.yaml@main
     with:
-      staging-aws: 123
-      production-aws: 123
-      product: "gallilearn"
-      service-name: "gallilearn-webbff"
-      hasEmail: false
       path: ./src/Web
       project: WebBff
       test: src/Tests/WebBff.Tests
     secrets:
-      packages-token: "a" # ${{ secrets.PACKAGES_TOKEN }}
-      app-id: "a" # ${{ secrets.APP_ID }}
-      app-private-key: "a" # ${{ secrets.APP_PRIVATE_KEY }} 
       CODECOV_TOKEN: ${{ secrets.CODECOV_TOKEN }} 
       SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }} 
+      AZURE_CREDENTIAlS: ${{ secrets.AZURE_CREDENTIAlS }} 

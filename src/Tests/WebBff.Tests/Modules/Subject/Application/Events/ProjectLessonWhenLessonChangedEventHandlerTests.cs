@@ -62,9 +62,11 @@ namespace WebBff.Tests.Modules.Subject.Application.Events
         public async Task Handle_ShouldLogError_AndRethrow_WhenExceptionIsThrown()
         {
             // Arrange
+            var lessonId = Guid.NewGuid();
+
             var lessonAdded = new DomainEvent.LessonAdded(
                 Guid.NewGuid(),
-                Guid.NewGuid(),
+                lessonId,
                 "Falha ao salvar",
                 "Erro",
                 1,
@@ -81,9 +83,9 @@ namespace WebBff.Tests.Modules.Subject.Application.Events
 
             // Assert
             await act.Should().ThrowAsync<Exception>()
-                .WithMessage("Erro simulado");
+                .WithMessage($"Falha ao criar a aula: {lessonId}.");
 
-            _loggerMock.Verify(l => l.Error(It.IsAny<Exception>(), $"Falha ao criar a aula: {lessonAdded.LessonId}."), Times.Once);
+            _loggerMock.Verify(l => l.Error(It.IsAny<Exception>(), "Falha ao criar a aula: {LessonId}.", lessonAdded.LessonId), Times.Once);
         }
     }
 }
