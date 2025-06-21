@@ -5,7 +5,7 @@ on:
 
 jobs:
   sonar-analysis:
-    uses: JoaooArtur/gallilearn-pipelines/.github/workflows/_SonarQube.yaml@main
+    uses: JoaooArtur/gallilearn-pipelines/.github/workflows/_sonar_qube.yaml@main
     with:
       project: src/Web/WebBff.csproj
     secrets:
