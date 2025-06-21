@@ -155,8 +155,6 @@ app.MapControllers();
 
 try
 {
-    app.UseRecurringJobs();
-
     await app.RunAsync();
 
     Log.Information("Stopped cleanly");

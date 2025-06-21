@@ -12,12 +12,10 @@ using System.Threading.Tasks;
 
 namespace Core.Application.Handlers
 {
-    public class HasRoleHandler(IOptionsSnapshot<JwtOptions> option) : AuthorizationHandler<HasRoleRequirement>
+    public class HasRoleHandler() : AuthorizationHandler<HasRoleRequirement>
     {
         protected override Task HandleRequirementAsync(AuthorizationHandlerContext context, HasRoleRequirement requirement)
         {
-            var jwtOptions = option.Value;
-
             var roles = context.User.Claims.Where(c => c.Type == "Role");
 
             if (roles.Any(r => requirement.Roles.Contains(r.Value)))

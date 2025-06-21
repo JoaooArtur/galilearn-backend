@@ -134,8 +134,6 @@ namespace Student.Application.UseCases.Events
             {
                 var collection = studentProjection.GetCollection();
 
-                var question = await studentProjection.GetAsync(@event.StudentId, cancellationToken);
-
                 var filter = Builders<Projection.Student>.Filter.Eq(x => x.Id, @event.StudentId);
 
                 var pushUpdate = Builders<Projection.Student>.Update.Push(x => x.Friends, @event.Friend);

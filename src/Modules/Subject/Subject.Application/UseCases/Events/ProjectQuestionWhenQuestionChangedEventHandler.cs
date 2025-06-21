@@ -43,8 +43,6 @@ namespace Subject.Application.UseCases.Events
             {
                 var collection = questionProjection.GetCollection();
 
-                var question = await questionProjection.GetAsync(@event.QuestionId, cancellationToken);
-
                 var newAnswer = new Dto.AnswerOption(
                     Id: @event.AnswerOptionId,
                     Text: @event.Text,
