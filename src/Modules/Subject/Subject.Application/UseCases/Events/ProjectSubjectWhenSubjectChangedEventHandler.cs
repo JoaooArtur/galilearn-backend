@@ -28,9 +28,11 @@ namespace Subject.Application.UseCases.Events
             }
             catch (Exception ex)
             {
-                logger.Error(ex, $"Falha ao criar o assunto: {@event.SubjectId}.");
+                logger.Error(ex, "Falha ao criar o assunto: {SubjectId}.", @event.SubjectId);
 
-                throw;
+                var message = $"Falha ao criar o assunto: {@event.SubjectId}.";
+
+                throw new InvalidOperationException(message, ex);
             }
         }
         public async Task Handle(DomainEvent.SubjectDeleted @event, CancellationToken cancellationToken = default)
@@ -41,9 +43,11 @@ namespace Subject.Application.UseCases.Events
             }
             catch (Exception ex)
             {
-                logger.Error(ex, $"Falha ao deletar o assunto: {@event.SubjectId}.");
+                logger.Error(ex, "Falha ao deletar o assunto: {SubjectId}.", @event.SubjectId);
 
-                throw;
+                var message = $"Falha ao deletar o assunto: {@event.SubjectId}.";
+
+                throw new InvalidOperationException(message, ex);
             }
         }
     }

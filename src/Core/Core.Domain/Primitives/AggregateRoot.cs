@@ -30,7 +30,7 @@ public abstract class AggregateRoot : Entity, IAggregateRoot
     protected void RaiseEvent(Func<ulong, IDomainEvent> onRaise)
     {
         if (IsDeleted)
-            throw new AggregateIsDeleted(Id);
+            throw new AggregateIsDeletedException(Id);
 
         var @event = onRaise(++Version);
 

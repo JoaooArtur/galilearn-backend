@@ -29,7 +29,7 @@ namespace WebBff.ServiceInstallers.EventBus.PipeObservers
             await Task.Yield();
 
             Log.Error("Fault on sending message {Message} from {Namespace}, Error: {Error}, CorrelationId: {CorrelationId}",
-                typeof(T).Name, typeof(T).Namespace, exception.Message, context.CorrelationId);
+                exception.Message, typeof(T).Namespace, exception.Message, context.CorrelationId);
         }
     }
 }

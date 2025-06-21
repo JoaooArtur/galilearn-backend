@@ -36,9 +36,11 @@ namespace Student.Application.UseCases.Events
             }
             catch (Exception ex)
             {
-                logger.Error(ex, $"Falha ao criar o progresso da lição: {@event.LessonId}.");
+                logger.Error(ex, "Falha ao criar o progresso da lição: {LessonId}.", @event.LessonId);
 
-                throw;
+                var message = $"Falha ao criar o progresso da lição: {@event.LessonId}.";
+
+                throw new InvalidOperationException(message, ex);
             }
         }
 
@@ -81,9 +83,11 @@ namespace Student.Application.UseCases.Events
             }
             catch (Exception ex)
             {
-                logger.Error(ex, $"Falha ao atualizar o status da lição: {@event.LessonId}.");
+                logger.Error(ex, "Falha ao atualizar o status da lição: {LessonId}.", @event.LessonId);
 
-                throw;
+                var message = $"Falha ao atualizar o status da lição: {@event.LessonId}.";
+
+                throw new InvalidOperationException(message, ex);
             }
         }
     }

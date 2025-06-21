@@ -68,7 +68,7 @@ builder.Services.AddAuthorization(options =>
         foreach (var policyName in jwtOptions.Policies)
             options.AddPolicy(policyName, policy => policy.Requirements.Add(
                 new HasRoleRequirement(policyName.Split(',').ToList(), jwtOptions.Issuer)));
-}); ;
+});
 
 builder.Services
     .AddHttpContextAccessor();
@@ -93,9 +93,6 @@ builder.Services
     });
 
 builder.Services.AddHealthCheck(builder.Configuration);
-
-//builder.Services.AddAuthentication("BmpBasicAuthentication")
-//    .AddScheme<AuthenticationSchemeOptions, BasicAuthenticationHandler>("BmpBasicAuthentication", null);
 
 #if !DEBUG
 var port = "8080";

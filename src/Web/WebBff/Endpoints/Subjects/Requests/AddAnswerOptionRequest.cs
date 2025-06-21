@@ -18,6 +18,7 @@ namespace WebBff.Endpoints.Subjects.Requests
         [JsonRequired]
         public Guid QuestionId { get; set; }
         public string Text { get; set; }
+        [JsonRequired]
         public bool IsRightAnswer { get; set; }
     }
 }

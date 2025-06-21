@@ -14,12 +14,11 @@ namespace WebBff.Tests.Modules.Student.Application.Queries;
 public class ListFriendsByStudentIdHandlerTests
 {
     private readonly Mock<IStudentProjection<Projection.Student>> _projectionMock = new();
-    private readonly Mock<ISender> _senderMock = new();
     private readonly ListFriendsByStudentIdHandler _handler;
 
     public ListFriendsByStudentIdHandlerTests()
     {
-        _handler = new ListFriendsByStudentIdHandler(_projectionMock.Object, _senderMock.Object);
+        _handler = new ListFriendsByStudentIdHandler(_projectionMock.Object);
     }
 
     [Fact]

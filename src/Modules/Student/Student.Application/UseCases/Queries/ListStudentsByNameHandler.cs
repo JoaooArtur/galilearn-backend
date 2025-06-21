@@ -14,7 +14,7 @@ namespace Student.Application.UseCases.Queries
     {
         public async Task<Result<List<StudentsByNameResponse>>> Handle(ListStudentsByNameQuery query, CancellationToken cancellationToken)
         {
-            var students = await projectionGateway.ListAsync(x => x.Name.ToLower().Contains(query.Name.ToLower()), cancellationToken);
+            var students = await projectionGateway.ListAsync(x => x.Name.Contains(query.Name, StringComparison.OrdinalIgnoreCase), cancellationToken);
 
             return Result.Success(students.Select(x => new StudentsByNameResponse(x.Id, x.Name, x.Email)).ToList());
         }

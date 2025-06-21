@@ -18,7 +18,7 @@ namespace Subject.Application.UseCases.Queries
 
             foreach (var lesson in lessons)
             {
-                var questionCount = await questionProjectionGateway.ListAsync(x => x.LessonId == lesson.Id);
+                var questionCount = await questionProjectionGateway.ListAsync(x => x.LessonId == lesson.Id, cancellationToken);
 
                 response.Add(new PagedLessonBySubjectIdResponse(
                 lesson.Id, lesson.SubjectId, lesson.Title, lesson.Content, questionCount.Count, lesson.Index, lesson.CreatedAt));

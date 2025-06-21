@@ -19,14 +19,12 @@ namespace WebBff.Tests.Modules.Subject.Application.Commands
     public class CreateQuestionHandlerTests
     {
         private readonly Mock<ISubjectApplicationService> _subjectServiceMock;
-        private readonly Mock<ILogger> _loggerMock;
         private readonly CreateQuestionHandler _handler;
 
         public CreateQuestionHandlerTests()
         {
             _subjectServiceMock = new Mock<ISubjectApplicationService>();
-            _loggerMock = new Mock<ILogger>();
-            _handler = new CreateQuestionHandler(_subjectServiceMock.Object, _loggerMock.Object);
+            _handler = new CreateQuestionHandler(_subjectServiceMock.Object);
         }
 
         [Fact]

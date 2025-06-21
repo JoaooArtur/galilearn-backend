@@ -8,8 +8,7 @@ using Subject.Shared.Response;
 namespace Subject.Application.UseCases.Commands
 {
     public class AddAnswerOptionHandler(
-        ISubjectApplicationService applicationService,
-        ILogger logger) : ICommandHandler<AddAnswerOptionCommand, IdentifierResponse>
+        ISubjectApplicationService applicationService) : ICommandHandler<AddAnswerOptionCommand, IdentifierResponse>
     {
         public async Task<Result<IdentifierResponse>> Handle(AddAnswerOptionCommand cmd, CancellationToken cancellationToken)
         {

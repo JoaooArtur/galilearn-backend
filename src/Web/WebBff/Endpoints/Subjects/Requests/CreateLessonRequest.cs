@@ -12,6 +12,7 @@ namespace WebBff.Endpoints.Subjects.Requests
         public Guid SubjectId { get; set; }
         public string Title { get; set; }
         public string Content { get; set; }
+        [JsonRequired]
         public int Index { get; set; }
     }
 }

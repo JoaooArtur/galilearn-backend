@@ -11,18 +11,12 @@ namespace WebBff.Handlers
     public class BasicAuthenticationHandler(
         IOptionsMonitor<AuthenticationSchemeOptions> options,
         ILoggerFactory logger,
-        UrlEncoder encoder,
-        IOptionsSnapshot<BmpBasicAuthenticationOptions> bmpBasicAuthenticationOptions,
-        IOptionsSnapshot<B2eBasicAuthenticationOptions> b2eBasicAuthenticationOptions,
-        IOptionsSnapshot<CartaosSimplesBasicAuthenticationOptions> cartaosSimplesBasicAuthenticationOptions,
-        IOptionsSnapshot<VindiBasicAuthenticationOptions> vindiBasicAuthenticationOptions) : AuthenticationHandler<AuthenticationSchemeOptions>(options, logger, encoder)
+        UrlEncoder encoder) : AuthenticationHandler<AuthenticationSchemeOptions>(options, logger, encoder)
     {
         private BasicAuthenticationOptions _basicAuthenticationOptions;
 
         protected override Task<AuthenticateResult> HandleAuthenticateAsync()
         {
-            ConfigureBasicOptions();
-
             if (Scheme.Name == "VindiBasicAuthentication")
             {
                 var username = Request.Query["username"].FirstOrDefault();
@@ -65,18 +59,5 @@ namespace WebBff.Handlers
             else
                 return Task.FromResult(AuthenticateResult.Fail("Invalid Username or Password"));
         }
-
-        private void ConfigureBasicOptions()
-            => _basicAuthenticationOptions = SetOptions();
-
-        private BasicAuthenticationOptions SetOptions()
-            => Scheme.Name switch
-            {
-                "BmpBasicAuthentication" => bmpBasicAuthenticationOptions.Value,
-                "B2eBasicAuthentication" => b2eBasicAuthenticationOptions.Value,
-                "CartaosSimplesBasicAuthentication" => cartaosSimplesBasicAuthenticationOptions.Value,
-                "VindiBasicAuthentication" => vindiBasicAuthenticationOptions.Value,
-                _ => throw new NotImplementedException()
-            };
     }
 }

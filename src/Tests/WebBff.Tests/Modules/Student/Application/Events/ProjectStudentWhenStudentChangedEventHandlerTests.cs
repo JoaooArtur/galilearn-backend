@@ -16,7 +16,6 @@ namespace WebBff.Tests.Modules.Student.Application.Events;
 public class ProjectStudentWhenStudentChangedEventHandlerTests
 {
     private readonly Mock<IStudentProjection<Projection.Student>> _studentProjectionMock = new();
-    private readonly Mock<ISender> _senderMock = new();
     private readonly Mock<ILogger> _loggerMock = new();
 
     private readonly ProjectStudentWhenStudentChangedEventHandler _handler;
@@ -25,7 +24,6 @@ public class ProjectStudentWhenStudentChangedEventHandlerTests
     {
         _handler = new ProjectStudentWhenStudentChangedEventHandler(
             _studentProjectionMock.Object,
-            _senderMock.Object,
             _loggerMock.Object);
     }
 

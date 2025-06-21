@@ -38,7 +38,7 @@ namespace WebBff.ServiceInstallers.EventBus.PipeObservers
             await Task.Yield();
 
             Log.Error("Fault on consuming message {Message} from {Namespace} by {ConsumerType}, Duration: {Duration}s, Error: {Error}, CorrelationId: {CorrelationId}",
-                typeof(T).Name, typeof(T).Namespace, consumerType, duration.TotalSeconds, exception.Message, context.CorrelationId);
+                exception.Message, typeof(T).Namespace, consumerType, duration.TotalSeconds, exception.Message, context.CorrelationId);
         }
 
         public async Task ReceiveFault(ReceiveContext context, Exception exception)
@@ -46,7 +46,7 @@ namespace WebBff.ServiceInstallers.EventBus.PipeObservers
             await Task.Yield();
 
             Log.Error("Fault on receiving message from exchange {Exchange}, Redelivered: {Redelivered}, Error: {Error}, CorrelationId: {CorrelationId}",
-                context.TransportHeaders.Get<string>(ExchangeKey), context.Redelivered, exception.Message, context.GetCorrelationId() ?? new());
+                context.TransportHeaders.Get<string>(ExchangeKey), context.Redelivered, exception.Message, context.GetCorrelationId() ?? Guid.NewGuid());
         }
     }
 }

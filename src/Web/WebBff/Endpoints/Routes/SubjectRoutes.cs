@@ -1,6 +1,6 @@
 ﻿namespace WebBff.Endpoints.Routes
 {
-    internal class SubjectRoutes
+    internal static class SubjectRoutes
     {
         internal const string BaseUri = "v{version:apiVersion}/subjects";
 

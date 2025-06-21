@@ -98,7 +98,7 @@ public class Student : AggregateRoot
         => RaiseEvent<DomainEvent.FriendAdded>(version => new(Id, friendId, version));
 
     public void AddXp(int xpAmount)
-        => RaiseEvent<DomainEvent.XpAdded>(version => new(Id, xpAmount, Xp + xpAmount >= NextLevelXPNeeded ? true : false, version));
+        => RaiseEvent<DomainEvent.XpAdded>(version => new(Id, xpAmount, Xp + xpAmount >= NextLevelXPNeeded, version));
 
     public void AddDayStreak()
         => RaiseEvent<DomainEvent.StreakAdded>(version => new(Id, version));

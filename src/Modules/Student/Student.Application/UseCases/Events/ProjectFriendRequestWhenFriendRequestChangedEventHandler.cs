@@ -37,9 +37,11 @@ namespace Student.Application.UseCases.Events
             }
             catch (Exception ex)
             {
-                logger.Error(ex, $"Falha ao criar a solicitação de amizade: {@event.RequestId}.");
+                logger.Error(ex, "Falha ao criar a solicitação de amizade: {RequestId}.", @event.RequestId);
 
-                throw;
+                var message = $"Falha ao criar a solicitação de amizade: {@event.RequestId}.";
+
+                throw new InvalidOperationException(message, ex);
             }
         }
         public async Task Handle(DomainEvent.FriendRequestRejectedStatus @event, CancellationToken cancellationToken = default)
@@ -54,9 +56,11 @@ namespace Student.Application.UseCases.Events
             }
             catch (Exception ex)
             {
-                logger.Error(ex, $"Falha ao rejeitar solicitação de amizade: {@event.RequestId}.");
+                logger.Error(ex, "Falha ao rejeitar solicitação de amizade: {RequestId}.", @event.RequestId);
 
-                throw;
+                var message = $"Falha ao rejeitar solicitação de amizade: {@event.RequestId}.";
+
+                throw new InvalidOperationException(message, ex);
             }
         }
 
@@ -82,9 +86,11 @@ namespace Student.Application.UseCases.Events
             }
             catch (Exception ex)
             {
-                logger.Error(ex, $"Falha ao aceitar solicitação de amizade: {@event.RequestId}.");
+                logger.Error(ex, "Falha ao aceitar solicitação de amizade: {RequestId}.", @event.RequestId);
 
-                throw;
+                var message = $"Falha ao aceitar solicitação de amizade: {@event.RequestId}.";
+
+                throw new InvalidOperationException(message, ex);
             }
         }
     }

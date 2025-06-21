@@ -28,9 +28,11 @@ namespace Subject.Application.UseCases.Events
             }
             catch (Exception ex)
             {
-                logger.Error(ex, $"Falha ao criar a aula: {@event.LessonId}.");
+                logger.Error(ex, "Falha ao criar a aula: {LessonId}.", @event.LessonId);
 
-                throw;
+                var message = $"Falha ao criar a aula: {@event.LessonId}.";
+
+                throw new InvalidOperationException(message, ex);
             }
         }
     }

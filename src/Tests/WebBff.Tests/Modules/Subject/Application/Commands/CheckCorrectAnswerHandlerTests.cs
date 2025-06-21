@@ -18,14 +18,12 @@ namespace WebBff.Tests.Modules.Subject.Application.Commands
     public class CheckCorrectAnswerHandlerTests
     {
         private readonly Mock<ISubjectProjection<Projection.Question>> _projectionMock;
-        private readonly Mock<ILogger> _loggerMock;
         private readonly CheckCorrectAnswerHandler _handler;
 
         public CheckCorrectAnswerHandlerTests()
         {
             _projectionMock = new Mock<ISubjectProjection<Projection.Question>>();
-            _loggerMock = new Mock<ILogger>();
-            _handler = new CheckCorrectAnswerHandler(_projectionMock.Object, _loggerMock.Object);
+            _handler = new CheckCorrectAnswerHandler(_projectionMock.Object);
         }
 
         [Fact]

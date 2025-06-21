@@ -9,8 +9,7 @@ using Student.Shared.Response;
 namespace Student.Application.UseCases.Queries
 {
     public class ListFriendsByStudentIdHandler(
-        IStudentProjection<Projection.Student> projectionGateway,
-        ISender sender) : IQueryHandler<ListFriendsByStudentIdQuery, List<ListFriendsByStudentIdResponse>>
+        IStudentProjection<Projection.Student> projectionGateway) : IQueryHandler<ListFriendsByStudentIdQuery, List<ListFriendsByStudentIdResponse>>
     {
         public async Task<Result<List<ListFriendsByStudentIdResponse>>> Handle(ListFriendsByStudentIdQuery query, CancellationToken cancellationToken)
         {

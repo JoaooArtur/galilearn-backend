@@ -20,7 +20,6 @@ namespace Student.Application.UseCases.Events
 
     public class ProjectStudentWhenStudentChangedEventHandler(
         IStudentProjection<Projection.Student> studentProjection,
-        ISender sender,
         ILogger logger) : IProjectStudentWhenStudentChangedEventHandler
     {
 
@@ -46,9 +45,11 @@ namespace Student.Application.UseCases.Events
             }
             catch (Exception ex)
             {
-                logger.Error(ex, $"Falha ao criar o estudante: {@event.StudentId}.");
+                logger.Error(ex, "Falha ao criar o estudante: {StudentId}.", @event.StudentId);
 
-                throw;
+                var message = $"Falha ao criar o estudante: {@event.StudentId}.";
+
+                throw new InvalidOperationException(message, ex);
             }
         }
         public async Task Handle(DomainEvent.StudentDeleted @event, CancellationToken cancellationToken = default)
@@ -60,9 +61,11 @@ namespace Student.Application.UseCases.Events
             }
             catch (Exception ex)
             {
-                logger.Error(ex, $"Falha ao deletar o estudante: {@event.StudentId}.");
+                logger.Error(ex, "Falha ao deletar o estudante: {StudentId}.", @event.StudentId);
 
-                throw;
+                var message = $"Falha ao deletar o estudante: {@event.StudentId}.";
+
+                throw new InvalidOperationException(message, ex);
             }
         }
 
@@ -78,9 +81,11 @@ namespace Student.Application.UseCases.Events
             }
             catch (Exception ex)
             {
-                logger.Error(ex, $"Falha ao atualizar o status do estudante: {@event.StudentId}.");
+                logger.Error(ex, "Falha ao atualizar o status do estudante: {StudentId}.", @event.StudentId);
 
-                throw;
+                var message = $"Falha ao atualizar o status do estudante: {@event.StudentId}.";
+
+                throw new InvalidOperationException(message, ex);
             }
         }
 
@@ -96,9 +101,11 @@ namespace Student.Application.UseCases.Events
             }
             catch (Exception ex)
             {
-                logger.Error(ex, $"Falha ao atualizar o status do estudante: {@event.StudentId}.");
+                logger.Error(ex, "Falha ao atualizar o status do estudante: {StudentId}.", @event.StudentId);
 
-                throw;
+                var message = $"Falha ao atualizar o status do estudante: {@event.StudentId}.";
+
+                throw new InvalidOperationException(message, ex);
             }
         }
 
@@ -114,9 +121,11 @@ namespace Student.Application.UseCases.Events
             }
             catch (Exception ex)
             {
-                logger.Error(ex, $"Falha ao atualizar o status do estudante: {@event.StudentId}.");
+                logger.Error(ex, "Falha ao atualizar o status do estudante: {StudentId}.", @event.StudentId);
 
-                throw;
+                var message = $"Falha ao atualizar o status do estudante: {@event.StudentId}.";
+
+                throw new InvalidOperationException(message, ex);
             }
         }
         public async Task Handle(DomainEvent.FriendAdded @event, CancellationToken cancellationToken = default)
@@ -135,9 +144,11 @@ namespace Student.Application.UseCases.Events
             }
             catch (Exception ex)
             {
-                logger.Error(ex, $"Falha ao adicionar amigo {@event.Friend} para o aluno: {@event.StudentId}.");
+                logger.Error(ex, "Falha ao adicionar amigo {Friend} para o aluno: {StudentId}.", @event.Friend, @event.StudentId);
 
-                throw;
+                var message = $"Falha ao adicionar amigo {@event.Friend} para o aluno: {@event.StudentId}.";
+
+                throw new InvalidOperationException(message, ex);
             }
         }
 
@@ -170,9 +181,11 @@ namespace Student.Application.UseCases.Events
             }
             catch (Exception ex)
             {
-                logger.Error(ex, $"Falha ao atualizar a experiência do estudante: {@event.StudentId}.");
+                logger.Error(ex, "Falha ao atualizar a experiência do estudante: {StudentId}.", @event.StudentId);
 
-                throw;
+                var message = $"Falha ao atualizar a experiência do estudante: {@event.StudentId}.";
+
+                throw new InvalidOperationException(message, ex);
             }
         }
         public async Task Handle(DomainEvent.StreakAdded @event, CancellationToken cancellationToken = default)
@@ -194,9 +207,11 @@ namespace Student.Application.UseCases.Events
             }
             catch (Exception ex)
             {
-                logger.Error(ex, $"Falha ao atualizar a sequência do estudante: {@event.StudentId}.");
+                logger.Error(ex, "Falha ao atualizar a sequência do estudante: {StudentId}.", @event.StudentId);
 
-                throw;
+                var message = $"Falha ao atualizar a sequência do estudante: {@event.StudentId}.";
+
+                throw new InvalidOperationException(message, ex);
             }
         }
     }

@@ -8,8 +8,7 @@ using Subject.Shared.Response;
 namespace Subject.Application.UseCases.Commands
 {
     public class CreateLessionHandler(
-        ISubjectApplicationService applicationService,
-        ILogger logger) : ICommandHandler<CreateLessonCommand, IdentifierResponse>
+        ISubjectApplicationService applicationService) : ICommandHandler<CreateLessonCommand, IdentifierResponse>
     {
         public async Task<Result<IdentifierResponse>> Handle(CreateLessonCommand cmd, CancellationToken cancellationToken)
         {

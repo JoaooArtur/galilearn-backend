@@ -18,7 +18,7 @@ namespace Core.Infrastructure.JsonConverters
             => new JsonSerializer { TypeNameHandling = _typeNameHandling }.Deserialize(reader, objectType);
 
         public override bool CanConvert(Type objectType)
-            => IsMassTransitOrSystemType(objectType) is false;
+            => IsMassTransitOrSystemType(objectType);
 
         private static bool IsMassTransitOrSystemType(Type objectType)
             => (objectType.Assembly.FullName?.Contains(nameof(MassTransit)) ?? false) ||

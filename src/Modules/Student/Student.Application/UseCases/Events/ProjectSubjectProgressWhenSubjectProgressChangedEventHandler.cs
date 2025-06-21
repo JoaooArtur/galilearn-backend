@@ -14,8 +14,6 @@ namespace Student.Application.UseCases.Events
 
     public class ProjectSubjectProgressWhenSubjectProgressChangedEventHandler(
         IStudentProjection<Projection.SubjectProgress> subjectProgressProjectionGateway,
-        IStudentApplicationService applicationService,
-        ISender sender,
         ILogger logger) : IProjectSubjectProgressWhenSubjectProgressChangedEventHandler
     {
 
@@ -33,9 +31,11 @@ namespace Student.Application.UseCases.Events
             }
             catch (Exception ex)
             {
-                logger.Error(ex, $"Falha ao criar o progresso do assunto: {@event.SubjectId}.");
+                logger.Error(ex, "Falha ao criar o progresso do assunto: {SubjectId}.", @event.SubjectId);
 
-                throw;
+                var message = $"Falha ao criar o progresso do assunto: {@event.SubjectId}.";
+
+                throw new InvalidOperationException(message, ex);
             }
         }
 
@@ -53,9 +53,11 @@ namespace Student.Application.UseCases.Events
             }
             catch (Exception ex)
             {
-                logger.Error(ex, $"Falha ao atualizar o status do assunto: {@event.SubjectId}.");
+                logger.Error(ex, "Falha ao atualizar o status do assunto: {SubjectId}.", @event.SubjectId);
 
-                throw;
+                var message = $"Falha ao atualizar o status do assunto: {@event.SubjectId}.";
+
+                throw new InvalidOperationException(message, ex);
             }
         }
     }

@@ -30,9 +30,11 @@ namespace Subject.Application.UseCases.Events
             }
             catch (Exception ex)
             {
-                logger.Error(ex, $"Falha ao criar a questão: {@event.QuestionId}.");
+                logger.Error(ex, "Falha ao criar a questão: {QuestionId}.", @event.QuestionId);
 
-                throw;
+                var message = $"Falha ao criar a questão: {@event.QuestionId}.";
+
+                throw new InvalidOperationException(message, ex);
             }
         }
         public async Task Handle(DomainEvent.AnswerOptionAdded @event, CancellationToken cancellationToken = default)
@@ -57,9 +59,11 @@ namespace Subject.Application.UseCases.Events
             }
             catch (Exception ex)
             {
-                logger.Error(ex, $"Falha ao adicionar a resposta:{@event.AnswerOptionId} para a questão: {@event.QuestionId}.");
+                logger.Error(ex, "Falha ao adicionar a resposta:{AnswerOptionId} para a questão: {QuestionId}.", @event.AnswerOptionId, @event.QuestionId);
 
-                throw;
+                var message = $"Falha ao adicionar a resposta:{@event.AnswerOptionId} para a questão: {@event.QuestionId}.";
+
+                throw new InvalidOperationException(message, ex);
             }
         }
     }

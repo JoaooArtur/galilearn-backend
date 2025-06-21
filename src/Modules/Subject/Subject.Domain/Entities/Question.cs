@@ -8,7 +8,7 @@ public class Question : Entity
 {
     public string Text { get; private set; }
     public QuestionLevel Level { get; private set; }
-    public List<AnswerOption> AnswerOptions { get; private set; } = [];
+    public List<AnswerOption> AnswerOptions { get; private set; }
 
     public Question(
         Guid id,

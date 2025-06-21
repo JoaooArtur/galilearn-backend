@@ -10,12 +10,11 @@ using Student.Shared.Response;
 namespace Student.Application.UseCases.Queries
 {
     public class ListFriendsRequestsByStudentIdHandler(
-        IStudentProjection<Projection.FriendRequests> projectionGateway,
-        ISender sender) : IQueryHandler<ListFriendsRequestsByStudentIdQuery, List<ListFriendsRequestsByStudentIdResponse>>
+        IStudentProjection<Projection.FriendRequests> projectionGateway) : IQueryHandler<ListFriendsRequestsByStudentIdQuery, List<ListFriendsRequestsByStudentIdResponse>>
     {
         public async Task<Result<List<ListFriendsRequestsByStudentIdResponse>>> Handle(ListFriendsRequestsByStudentIdQuery query, CancellationToken cancellationToken)
         {
-            var friendsRequests = await projectionGateway.ListAsync(x => x.StudentId == query.StudentId && x.Status == FriendRequestStatus.Pending);
+            var friendsRequests = await projectionGateway.ListAsync(x => x.StudentId == query.StudentId && x.Status == FriendRequestStatus.Pending, cancellationToken);
 
             return friendsRequests is null ?
                 Result.Success<List<ListFriendsRequestsByStudentIdResponse>>(default) :

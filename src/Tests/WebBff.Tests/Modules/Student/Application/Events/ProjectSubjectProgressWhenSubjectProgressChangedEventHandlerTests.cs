@@ -15,8 +15,6 @@ namespace WebBff.Tests.Modules.Student.Application.Events;
 public class ProjectSubjectProgressWhenSubjectProgressChangedEventHandlerTests
 {
     private readonly Mock<IStudentProjection<Projection.SubjectProgress>> _subjectProgressProjectionMock = new();
-    private readonly Mock<IStudentApplicationService> _applicationServiceMock = new();
-    private readonly Mock<ISender> _senderMock = new();
     private readonly Mock<ILogger> _loggerMock = new();
 
     private readonly ProjectSubjectProgressWhenSubjectProgressChangedEventHandler _handler;
@@ -25,8 +23,6 @@ public class ProjectSubjectProgressWhenSubjectProgressChangedEventHandlerTests
     {
         _handler = new ProjectSubjectProgressWhenSubjectProgressChangedEventHandler(
             _subjectProgressProjectionMock.Object,
-            _applicationServiceMock.Object,
-            _senderMock.Object,
             _loggerMock.Object
         );
     }

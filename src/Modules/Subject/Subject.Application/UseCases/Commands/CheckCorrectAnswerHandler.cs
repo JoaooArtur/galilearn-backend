@@ -9,8 +9,7 @@ using Subject.Shared.Response;
 namespace Subject.Application.UseCases.Commands
 {
     public class CheckCorrectAnswerHandler(
-        ISubjectProjection<Projection.Question> questionProjectionGateway,
-        ILogger logger) : ICommandHandler<CheckCorrectAnswerCommand, CheckCorrectAnswerResponse>
+        ISubjectProjection<Projection.Question> questionProjectionGateway) : ICommandHandler<CheckCorrectAnswerCommand, CheckCorrectAnswerResponse>
     {
         public async Task<Result<CheckCorrectAnswerResponse>> Handle(CheckCorrectAnswerCommand cmd, CancellationToken cancellationToken)
         {

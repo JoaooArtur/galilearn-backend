@@ -18,14 +18,12 @@ namespace WebBff.Tests.Modules.Subject.Application.Commands
     public class AddAnswerOptionHandlerTests
     {
         private readonly Mock<ISubjectApplicationService> _subjectServiceMock;
-        private readonly Mock<ILogger> _loggerMock;
         private readonly AddAnswerOptionHandler _handler;
 
         public AddAnswerOptionHandlerTests()
         {
             _subjectServiceMock = new Mock<ISubjectApplicationService>();
-            _loggerMock = new Mock<ILogger>();
-            _handler = new AddAnswerOptionHandler(_subjectServiceMock.Object, _loggerMock.Object);
+            _handler = new AddAnswerOptionHandler(_subjectServiceMock.Object);
         }
 
         [Fact]
