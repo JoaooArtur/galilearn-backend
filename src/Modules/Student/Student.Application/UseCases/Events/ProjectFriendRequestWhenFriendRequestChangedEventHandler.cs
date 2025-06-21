@@ -79,7 +79,7 @@ namespace Student.Application.UseCases.Events
                 if (studentFriendResult.IsFailure)
                     throw new InvalidOperationException(studentFriendResult.Error);
 
-                var friendStudentResult = await sender.Send(new AddFriendCommand(StudentId: @event.FriendId, FriendId: @event.StudentId), cancellationToken);
+                var friendStudentResult = await sender.Send(new AddFriendCommand(StudentId: @event.FriendId, FriendId: @event.StudentId), cancellationToken); //NOSONAR
 
                 if (friendStudentResult.IsFailure)
                     throw new InvalidOperationException(friendStudentResult.Error);

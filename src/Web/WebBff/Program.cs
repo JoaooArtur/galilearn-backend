@@ -55,13 +55,13 @@ builder.Services.AddAuthentication("Bearer")
             RoleClaimType = "Role",
             NameClaimType = "UserName",
             IssuerSigningKey = new SymmetricSecurityKey(
-                    Encoding.UTF8.GetBytes(builder.Services.BuildServiceProvider().GetRequiredService<IOptions<JwtOptions>>().Value.Key))//NOSONAR
+                    Encoding.UTF8.GetBytes(builder.Services.BuildServiceProvider().GetRequiredService<IOptions<JwtOptions>>().Value.Key)) //NOSONAR
         };
     });
 
 builder.Services.AddAuthorization(options =>
 {
-    var serviceProvider = builder.Services.BuildServiceProvider();//NOSONAR
+    var serviceProvider = builder.Services.BuildServiceProvider(); //NOSONAR
     var jwtOptions = serviceProvider.GetRequiredService<IOptions<JwtOptions>>().Value;
 
     if (jwtOptions.Policies != null)
