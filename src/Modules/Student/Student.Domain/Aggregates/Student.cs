@@ -203,7 +203,7 @@ public class Student : AggregateRoot
         => Requests.Add(FriendRequest.Create(@event.RequestId, @event.FriendId));
 
     private void When(DomainEvent.FriendRequestAcceptedStatus @event)
-        => Requests.FirstOrDefault(x => x.Id == @event.RequestId).ChangeStatus(@event.Status);
+        => Requests.FirstOrDefault(x => x.Id == @event.RequestId)?.ChangeStatus(@event.Status);
 
     private void When(DomainEvent.FriendRequestRejectedStatus @event)
         => Requests.FirstOrDefault(x => x.Id == @event.RequestId)?.ChangeStatus(@event.Status);

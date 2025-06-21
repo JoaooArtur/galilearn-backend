@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using Newtonsoft.Json;
 using WebBff.Endpoints.Routes;
 
 namespace WebBff.Endpoints.Subjects.Requests
@@ -10,6 +11,7 @@ namespace WebBff.Endpoints.Subjects.Requests
     public class PagedLessonsBySubjectIdRequest
     {
         [FromRoute(Name = SubjectRoutes.SubjectId)]
+        [JsonRequired]
         public Guid SubjectId { get; set; }
 
         [FromQuery]

@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using Newtonsoft.Json;
 using WebBff.Endpoints.Routes;
 
 namespace WebBff.Endpoints.Students.Requests
@@ -6,12 +7,15 @@ namespace WebBff.Endpoints.Students.Requests
     public class CreateAttemptRequest
     {
         [FromRoute(Name = StudentsRoutes.SubjectId)]
+        [JsonRequired]
         public Guid SubjectId { get; set; }
         [FromRoute(Name = StudentsRoutes.StudentId)]
+        [JsonRequired]
         public Guid StudentId { get; set; }
         [FromHeader(Name = StudentsRoutes.Token)]
         public string Token { get; set; }
         [FromRoute(Name = StudentsRoutes.LessonId)]
+        [JsonRequired]
         public Guid LessonId { get; set; }
     }
 }

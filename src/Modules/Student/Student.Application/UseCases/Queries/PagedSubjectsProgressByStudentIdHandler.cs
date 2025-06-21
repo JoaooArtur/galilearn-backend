@@ -49,9 +49,7 @@ namespace Student.Application.UseCases.Queries
 
                 response.Add(new SubjectsProgressByStudentIdResponse(subject, new(finishedLessons.Count, lessonCount.Count)));
             }
-            return response is not null
-                ? Result.Success(PagedResult<SubjectsProgressByStudentIdResponse>.Create(query.Paging, response.AsQueryable()))
-                : Result.Success<IPagedResult<SubjectsProgressByStudentIdResponse>>(default);
+            return Result.Success(PagedResult<SubjectsProgressByStudentIdResponse>.Create(query.Paging, response.AsQueryable()));
         }
     }
 }

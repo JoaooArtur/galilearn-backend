@@ -27,6 +27,9 @@ namespace Student.Application.UseCases.Commands
 
             var request = student.Requests.FirstOrDefault(x => x.Id == cmd.RequestId);
 
+            if (request is null)
+                return Result.Failure(new Core.Shared.Errors.Error("FriendRequestNotFoud", "Não foi possível encontrar o pedido de amizade."));
+
             student.AcceptFriendRequest(cmd.RequestId, request.FriendId);
 
             await applicationService.AppendEventsAsync(student, cancellationToken);

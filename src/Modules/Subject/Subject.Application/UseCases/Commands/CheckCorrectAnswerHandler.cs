@@ -18,6 +18,9 @@ namespace Subject.Application.UseCases.Commands
 
             var correctAnswer = question.Answers.FirstOrDefault(x => x.RightAnswer);
 
+            if (correctAnswer is null)
+                return Result.Failure<CheckCorrectAnswerResponse>(new Core.Shared.Errors.Error("CheckCorrectAnswer", "Ocorreu um erro ao validar a resposta correta."));
+
             return Result.Success<CheckCorrectAnswerResponse>(new(correctAnswer.Id, correctAnswer.Id == cmd.AnswerId));
         }
     }
