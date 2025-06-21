@@ -1,0 +1,12 @@
+name: Analyze Main with SonarCloud
+
+on:
+  workflow_dispatch:
+
+jobs:
+  sonar-analysis:
+    uses: JoaooArtur/gallilearn-pipelines/.github/workflows/_SonarQube.yaml@main
+    with:
+      project: src/Web/WebBff.csproj
+    secrets:
+      SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
