@@ -1,0 +1,38 @@
+
+codecov:
+  require_ci_to_pass: yes
+  notify:
+    after_n_builds: 1
+
+coverage:
+  status:
+    project:
+      default:
+        target: 80%
+    patch:
+      default:
+        target: 60%
+  precision: 2
+  round: down
+  range: "70...100"
+
+ignore:
+  - "src/Modules/Student/Student.Persistence/*"
+  - "**/Migrations/*"
+  - "src/Core/**"
+  - "src/Common/**"
+  - "**/*.g.cs"
+  - "**/obj/**"
+
+comment:
+  layout: "reach, diff, flags, files"
+  behavior: default
+  require_changes: false
+
+parsers:
+  gcov:
+    branch_detection:
+      conditional: true
+      loop: true
+      method: true
+      macro: true
