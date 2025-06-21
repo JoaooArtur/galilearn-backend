@@ -13,7 +13,6 @@ ENV NUGET_PACKAGES_TOKEN=$NUGET_PACKAGES_TOKEN
 WORKDIR /src
 
 COPY ["Directory.Packages.props", "."]
-COPY ["nuget.config", "."]
 
 COPY ["src/Web/WebBff/WebBff.csproj", "src/Web/WebBff/"]
 COPY ["src/Common/Common/Common.csproj", "src/Common/Common/"]
