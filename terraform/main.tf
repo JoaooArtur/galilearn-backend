@@ -8,6 +8,11 @@ resource "azurerm_resource_group" "rg" {
   location = "brazilsouth"
 }
 
+data "azurerm_container_registry" "acr" {
+  name                = "acrgalilearn"
+  resource_group_name = azurerm_resource_group.rg.name
+}
+
 resource "azurerm_container_app_environment" "env" {
   name                = "cae-galilearn"
   location            = azurerm_resource_group.rg.location
@@ -19,6 +24,10 @@ resource "azurerm_container_app" "app" {
   container_app_environment_id = azurerm_container_app_environment.env.id
   resource_group_name          = azurerm_resource_group.rg.name
   revision_mode                = "Single"
+
+  identity {
+    type = "SystemAssigned"
+  }
 
   template {
     container {
@@ -32,9 +41,16 @@ resource "azurerm_container_app" "app" {
   ingress {
     external_enabled = true
     target_port      = 80
+
     traffic_weight {
       percentage      = 100
       latest_revision = true
     }
   }
+}
+
+resource "azurerm_role_assignment" "acr_pull_permission" {
+  principal_id         = azurerm_container_app.app.identity[0].principal_id
+  role_definition_name = "AcrPull"
+  scope                = data.azurerm_container_registry.acr.id
 }
