@@ -44,7 +44,7 @@ namespace WebBff.Extensions
 #endif
 #if DEBUG
                     .WriteTo.Console(theme: Serilog.Sinks.SystemConsole.Themes.AnsiConsoleTheme.Code)
-                    .WriteTo.Seq("http://localhost:5341");
+                    .WriteTo.Seq("http://localhost:5341"); //NOSONAR
 #endif
             });
 

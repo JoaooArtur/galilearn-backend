@@ -77,12 +77,12 @@ namespace Student.Application.UseCases.Events
                 var studentFriendResult = await sender.Send(new AddFriendCommand(@event.StudentId, @event.FriendId), cancellationToken);
 
                 if (studentFriendResult.IsFailure)
-                    throw new Exception(studentFriendResult.Error);
+                    throw new InvalidOperationException(studentFriendResult.Error);
 
-                var friendStudentResult = await sender.Send(new AddFriendCommand(@event.FriendId, @event.StudentId), cancellationToken);
+                var friendStudentResult = await sender.Send(new AddFriendCommand(StudentId: @event.FriendId, FriendId: @event.StudentId), cancellationToken);
 
                 if (friendStudentResult.IsFailure)
-                    throw new Exception(friendStudentResult.Error);
+                    throw new InvalidOperationException(friendStudentResult.Error);
             }
             catch (Exception ex)
             {

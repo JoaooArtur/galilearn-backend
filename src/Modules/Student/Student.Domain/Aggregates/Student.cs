@@ -142,7 +142,7 @@ public class Student : AggregateRoot
         Status = (StudentStatus)@event.Status;
     }
 
-    private void When(DomainEvent.StudentDeleted _)
+    private void When(DomainEvent.StudentDeleted _)//NOSONAR
         => IsDeleted = true;
 
     private void When(DomainEvent.FriendAdded @event)
@@ -161,7 +161,7 @@ public class Student : AggregateRoot
             NextLevelXPNeeded = 100 * Level;
         }
     }
-    private void When(DomainEvent.StreakAdded @event)
+    private void When(DomainEvent.StreakAdded _)//NOSONAR
     {
         DayStreak = DayStreak + 1;
         LastLessonAnswered = DateTimeOffset.Now;

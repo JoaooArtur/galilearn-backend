@@ -79,7 +79,7 @@ namespace Student.Application.UseCases.Events
                     var studentResult = await applicationService.LoadAggregateAsync<StudentAggregate>(@event.StudentId, cancellationToken);
 
                     if (studentResult.IsFailure)
-                        throw new Exception(studentResult.Error);
+                        throw new InvalidOperationException(studentResult.Error);
                     var student = studentResult.Value;
 
                     student.ChangeAttemptStatus(lesson.SubjectId, @event.AttemptId, lesson.Id, AttemptStatus.Finished);

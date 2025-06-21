@@ -5,7 +5,7 @@ using System.Linq.Expressions;
 
 namespace Core.Application.EventStore
 {
-    public interface IEventStore<TContext> where TContext : DbContext
+    public interface IEventStore<TContext> where TContext : DbContext //NOSONAR
     {
         Task AppendAsync<TAggregate>(StoreEvent<TAggregate> storeEvent, CancellationToken cancellationToken)
             where TAggregate : IAggregateRoot;

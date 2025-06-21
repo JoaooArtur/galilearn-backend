@@ -62,7 +62,7 @@ public class Subject : AggregateRoot
         Index = @event.Index;
     }
 
-    private void When(DomainEvent.SubjectDeleted _)
+    private void When(DomainEvent.SubjectDeleted _)//NOSONAR
         => IsDeleted = true;
 
     private void When(DomainEvent.LessonAdded @event)

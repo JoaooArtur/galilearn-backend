@@ -22,7 +22,7 @@ public class ListStudentsByNameHandlerTests
     public ListStudentsByNameHandlerTests()
     {
         _projectionMock = new Mock<IStudentProjection<Projection.Student>>();
-        _handler = new ListStudentsByNameHandler(_projectionMock.Object, null);
+        _handler = new ListStudentsByNameHandler(_projectionMock.Object);
     }
 
     [Fact]

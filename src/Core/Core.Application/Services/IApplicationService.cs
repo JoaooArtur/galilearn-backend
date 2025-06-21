@@ -4,7 +4,7 @@ using Microsoft.EntityFrameworkCore;
 
 namespace Core.Application.Services
 {
-    public interface IApplicationService<TContext> where TContext : DbContext
+    public interface IApplicationService<TContext> where TContext : DbContext //NOSONAR
     {
         Task AppendEventsAsync<TAggregate>(TAggregate aggregate, CancellationToken cancellationToken)
             where TAggregate : IAggregateRoot;

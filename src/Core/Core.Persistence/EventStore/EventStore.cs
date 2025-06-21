@@ -7,7 +7,7 @@ using System.Linq.Expressions;
 
 namespace Core.Persistence.EventStore
 {
-    public class EventStore<TContext>(TContext dbContext) : IEventStore<TContext>, ITransient 
+    public class EventStore<TContext>(TContext dbContext) : IEventStore<TContext>, ITransient
         where TContext : DbContext
     {
         public async Task AppendAsync<TAggregate>(StoreEvent<TAggregate> storeEvent, CancellationToken cancellationToken)
