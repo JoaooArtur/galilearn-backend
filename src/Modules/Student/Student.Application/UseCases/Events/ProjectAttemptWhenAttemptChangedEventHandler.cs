@@ -45,7 +45,7 @@ namespace Student.Application.UseCases.Events
 
                 var message = $"Falha ao criar a tentativa: {@event.AttemptId} para a lição: {@event.LessonId}";
 
-                throw new ApplicationException(message, ex);
+                throw new InvalidOperationException(message, ex);
             }
         }
 
@@ -94,7 +94,7 @@ namespace Student.Application.UseCases.Events
 
                 var message = $"Falha ao atualizar a tentativa: {@event.AttemptId} para a questão: {@event.QuestionId}.";
 
-                throw new ApplicationException(message, ex);
+                throw new InvalidOperationException(message, ex);
             }
         }
         public async Task Handle(DomainEvent.AttemptInProgressStatus @event, CancellationToken cancellationToken = default)
@@ -113,7 +113,7 @@ namespace Student.Application.UseCases.Events
 
                 var message = $"Falha ao atualizar o status da tentativa: {@event.AttemptId}";
 
-                throw new ApplicationException(message, ex);
+                throw new InvalidOperationException(message, ex);
             }
         }
         public async Task Handle(DomainEvent.AttemptFinishedStatus @event, CancellationToken cancellationToken = default)
@@ -133,7 +133,7 @@ namespace Student.Application.UseCases.Events
                     var studentResult = await applicationService.LoadAggregateAsync<StudentAggregate>(attempt.StudentId, cancellationToken);
 
                     if (studentResult.IsFailure)
-                        throw new ApplicationException(studentResult.Error);
+                        throw new InvalidOperationException(studentResult.Error);
                     var student = studentResult.Value;
 
                     student.ChangeLessonStatus(@event.SubjectId, @event.LessonId, LessonStatus.Finished);
@@ -155,7 +155,7 @@ namespace Student.Application.UseCases.Events
 
                 var message = $"Falha ao atualizar o status da tentativa: {@event.AttemptId}";
 
-                throw new ApplicationException(message, ex);
+                throw new InvalidOperationException(message, ex);
             }
         }
     }
