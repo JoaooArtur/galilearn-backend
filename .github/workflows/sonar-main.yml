@@ -7,6 +7,6 @@ jobs:
   sonar-analysis:
     uses: JoaooArtur/gallilearn-pipelines/.github/workflows/_sonar_qube.yaml@main
     with:
-      project: WebBff
+      project: ./src/Web/WebBff
     secrets:
       SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
