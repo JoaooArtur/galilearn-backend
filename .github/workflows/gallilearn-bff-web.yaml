@@ -15,8 +15,9 @@ jobs:
       hasEmail: false
       path: ./src/Web
       project: WebBff
-      test: tests/WebBff.Tests
+      test: src/Tests/WebBff.Tests
     secrets:
       packages-token: "a" # ${{ secrets.PACKAGES_TOKEN }}
       app-id: "a" # ${{ secrets.APP_ID }}
       app-private-key: "a" # ${{ secrets.APP_PRIVATE_KEY }} 
+      CODECOV_TOKEN: ${{ secrets.CODECOV_TOKEN }} 
