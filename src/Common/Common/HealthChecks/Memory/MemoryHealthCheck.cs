@@ -9,7 +9,7 @@ namespace Common.HealthChecks.Memory
 
         public Task<HealthCheckResult> CheckHealthAsync(HealthCheckContext context, CancellationToken cancellationToken = default)
         {
-            var options = _options.Get(context.Registration.Name);
+            var memoryOptions = _options.Get(context.Registration.Name);
 
             var allocated = GC.GetTotalMemory(forceFullCollection: false);
 
@@ -21,9 +21,9 @@ namespace Common.HealthChecks.Memory
                 ["Gen2Collections"] = GC.CollectionCount(2)
             };
 
-            var status = allocated >= options.Threshold ? context.Registration.FailureStatus : HealthStatus.Healthy;
+            var status = allocated >= memoryOptions.Threshold ? context.Registration.FailureStatus : HealthStatus.Healthy;
 
-            var healthCheckResult = new HealthCheckResult(status, description: $"Reports degraded status if allocated bytes >= {options.Threshold} bytes", data: data);
+            var healthCheckResult = new HealthCheckResult(status, description: $"Reports degraded status if allocated bytes >= {memoryOptions.Threshold} bytes", data: data);
 
             return Task.FromResult(healthCheckResult);
         }

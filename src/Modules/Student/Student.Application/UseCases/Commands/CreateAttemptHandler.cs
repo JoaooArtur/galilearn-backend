@@ -9,8 +9,7 @@ namespace Student.Application.UseCases.Commands
 {
     using StudentAggreagate = Domain.Aggregates.Student;
     public class CreateAttemptHandler(
-        IStudentApplicationService applicationService,
-        ILogger logger) : ICommandHandler<CreateAttemptCommand, IdentifierResponse>
+        IStudentApplicationService applicationService) : ICommandHandler<CreateAttemptCommand, IdentifierResponse>
     {
 
         public async Task<Result<IdentifierResponse>> Handle(CreateAttemptCommand cmd, CancellationToken cancellationToken)

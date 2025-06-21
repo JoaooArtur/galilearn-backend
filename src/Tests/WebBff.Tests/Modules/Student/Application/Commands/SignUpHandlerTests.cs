@@ -14,19 +14,16 @@ public class SignUpHandlerTests
 {
     private readonly Mock<IStudentApplicationService> _applicationServiceMock;
     private readonly Mock<IStudentProjection<Projection.Student>> _studentProjectionMock;
-    private readonly Mock<ILogger> _loggerMock;
     private readonly SignUpHandler _handler;
 
     public SignUpHandlerTests()
     {
         _applicationServiceMock = new Mock<IStudentApplicationService>();
         _studentProjectionMock = new Mock<IStudentProjection<Projection.Student>>();
-        _loggerMock = new Mock<ILogger>();
 
         _handler = new SignUpHandler(
             _applicationServiceMock.Object,
-            _studentProjectionMock.Object,
-            _loggerMock.Object);
+            _studentProjectionMock.Object);
     }
 
     [Fact]

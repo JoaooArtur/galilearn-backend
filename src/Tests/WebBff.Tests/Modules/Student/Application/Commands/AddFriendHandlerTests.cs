@@ -14,14 +14,12 @@ namespace WebBff.Tests.Modules.Student.Application.Commands;
 public class AddFriendHandlerTests
 {
     private readonly Mock<IStudentApplicationService> _applicationServiceMock;
-    private readonly Mock<ILogger> _loggerMock;
     private readonly AddFriendHandler _handler;
 
     public AddFriendHandlerTests()
     {
         _applicationServiceMock = new Mock<IStudentApplicationService>();
-        _loggerMock = new Mock<ILogger>();
-        _handler = new AddFriendHandler(_applicationServiceMock.Object, _loggerMock.Object);
+        _handler = new AddFriendHandler(_applicationServiceMock.Object);
     }
 
     [Fact]

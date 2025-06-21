@@ -18,19 +18,16 @@ public class AnswerAttemptHandlerTests
 {
     private readonly Mock<IStudentApplicationService> _applicationServiceMock;
     private readonly Mock<ISender> _senderMock;
-    private readonly Mock<ILogger> _loggerMock;
     private readonly AnswerAttemptHandler _handler;
 
     public AnswerAttemptHandlerTests()
     {
         _applicationServiceMock = new Mock<IStudentApplicationService>();
         _senderMock = new Mock<ISender>();
-        _loggerMock = new Mock<ILogger>();
 
         _handler = new AnswerAttemptHandler(
             _applicationServiceMock.Object,
-            _senderMock.Object,
-            _loggerMock.Object);
+            _senderMock.Object);
     }
 
     [Fact]

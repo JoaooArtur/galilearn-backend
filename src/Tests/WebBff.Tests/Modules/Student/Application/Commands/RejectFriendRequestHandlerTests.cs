@@ -13,17 +13,14 @@ namespace WebBff.Tests.Modules.Student.Application.Commands;
 public class RejectFriendRequestHandlerTests
 {
     private readonly Mock<IStudentApplicationService> _applicationServiceMock;
-    private readonly Mock<ILogger> _loggerMock;
     private readonly RejectFriendRequestHandler _handler;
 
     public RejectFriendRequestHandlerTests()
     {
         _applicationServiceMock = new Mock<IStudentApplicationService>();
-        _loggerMock = new Mock<ILogger>();
 
         _handler = new RejectFriendRequestHandler(
-            _applicationServiceMock.Object,
-            _loggerMock.Object);
+            _applicationServiceMock.Object);
     }
     [Fact]
     public async Task Handle_Should_Succeed_When_Aggregate_Loaded()

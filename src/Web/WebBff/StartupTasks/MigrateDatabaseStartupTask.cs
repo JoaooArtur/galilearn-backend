@@ -17,12 +17,12 @@ namespace WebBff.StartupTasks
     {
 
         /// <inheritdoc />
-        protected override async Task ExecuteAsync(CancellationToken cancellationToken)
+        protected override async Task ExecuteAsync(CancellationToken stoppingToken)
         {
             using IServiceScope scope = serviceProvider.CreateScope();
 
-            await MigrateDatabaseAsync<StudentDbContext>(scope, cancellationToken);
-            await MigrateDatabaseAsync<SubjectDbContext>(scope, cancellationToken);
+            await MigrateDatabaseAsync<StudentDbContext>(scope, stoppingToken);
+            await MigrateDatabaseAsync<SubjectDbContext>(scope, stoppingToken);
         }
 
         private static async Task MigrateDatabaseAsync<TDbContext>(IServiceScope scope, CancellationToken cancellationToken)

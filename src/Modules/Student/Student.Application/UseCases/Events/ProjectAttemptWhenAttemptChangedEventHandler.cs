@@ -1,5 +1,6 @@
 ﻿using Amazon.S3;
 using Core.Application.EventBus;
+using Core.Domain.Primitives;
 using MediatR;
 using MongoDB.Driver;
 using Serilog;
@@ -7,7 +8,6 @@ using Student.Application.Services;
 using Student.Domain;
 using Student.Domain.Enumerations;
 using Student.Persistence.Projections;
-using Subject.Shared.Queries;
 
 namespace Student.Application.UseCases.Events
 {
@@ -22,7 +22,6 @@ namespace Student.Application.UseCases.Events
         IStudentProjection<Projection.Attempt> attemptProjection,
         IStudentProjection<Projection.LessonProgress> lessonProjection,
         IStudentApplicationService applicationService,
-        ISender sender,
         ILogger logger) : IProjectAttemptWhenAttemptChangedEventHandler
     {
 
@@ -42,9 +41,11 @@ namespace Student.Application.UseCases.Events
             }
             catch (Exception ex)
             {
-                logger.Error(ex, $"Falha ao criar a tentativa: {@event.AttemptId} para a lição: {@event.LessonId}.");
+                logger.Error(ex, "Falha ao criar a tentativa: {AttemptId} para a lição: {LessonId}", @event.AttemptId, @event.LessonId);
 
-                throw;
+                var message = $"Falha ao criar a tentativa: {@event.AttemptId} para a lição: {@event.LessonId}";
+
+                throw new ApplicationException(message, ex);
             }
         }
 
@@ -89,12 +90,14 @@ namespace Student.Application.UseCases.Events
             }
             catch (Exception ex)
             {
-                logger.Error(ex, $"Falha ao atualizar a tentativa: {@event.AttemptId} para a questão: {@event.QuestionId}.");
+                logger.Error(ex, "Falha ao atualizar a tentativa: {AttemptId} para a questão: {QuestionId}.", @event.AttemptId, @event.QuestionId);
 
-                throw;
+                var message = $"Falha ao atualizar a tentativa: {@event.AttemptId} para a questão: {@event.QuestionId}.";
+
+                throw new ApplicationException(message, ex);
             }
         }
-        public async Task Handle(DomainEvent.AttemptInProgressStatus @event, CancellationToken cancellationToken)
+        public async Task Handle(DomainEvent.AttemptInProgressStatus @event, CancellationToken cancellationToken = default)
         {
             try
             {
@@ -106,12 +109,14 @@ namespace Student.Application.UseCases.Events
             }
             catch (Exception ex)
             {
-                logger.Error(ex, $"Falha ao atualizar o status da tentativa: {@event.AttemptId}.");
+                logger.Error(ex, "Falha ao atualizar o status da tentativa: {AttemptId}", @event.AttemptId);
 
-                throw;
+                var message = $"Falha ao atualizar o status da tentativa: {@event.AttemptId}";
+
+                throw new ApplicationException(message, ex);
             }
         }
-        public async Task Handle(DomainEvent.AttemptFinishedStatus @event, CancellationToken cancellationToken)
+        public async Task Handle(DomainEvent.AttemptFinishedStatus @event, CancellationToken cancellationToken = default)
         {
             try
             {
@@ -128,7 +133,7 @@ namespace Student.Application.UseCases.Events
                     var studentResult = await applicationService.LoadAggregateAsync<StudentAggregate>(attempt.StudentId, cancellationToken);
 
                     if (studentResult.IsFailure)
-                        throw new Exception(studentResult.Error);
+                        throw new ApplicationException(studentResult.Error);
                     var student = studentResult.Value;
 
                     student.ChangeLessonStatus(@event.SubjectId, @event.LessonId, LessonStatus.Finished);
@@ -146,9 +151,11 @@ namespace Student.Application.UseCases.Events
             }
             catch (Exception ex)
             {
-                logger.Error(ex, $"Falha ao atualizar o status da tentativa: {@event.AttemptId}.");
+                logger.Error(ex, "Falha ao atualizar o status da tentativa: {AttemptId}", @event.AttemptId);
 
-                throw;
+                var message = $"Falha ao atualizar o status da tentativa: {@event.AttemptId}";
+
+                throw new ApplicationException(message, ex);
             }
         }
     }

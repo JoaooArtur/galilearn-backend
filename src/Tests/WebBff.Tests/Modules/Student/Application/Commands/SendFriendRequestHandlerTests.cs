@@ -20,17 +20,14 @@ namespace WebBff.Tests.Modules.Student.Application.Commands
     public class SendFriendRequestHandlerTests
     {
         private readonly Mock<IStudentApplicationService> _applicationServiceMock;
-        private readonly Mock<ILogger> _loggerMock;
         private readonly SendFriendRequestHandler _handler;
 
         public SendFriendRequestHandlerTests()
         {
             _applicationServiceMock = new Mock<IStudentApplicationService>();
-            _loggerMock = new Mock<ILogger>();
 
             _handler = new SendFriendRequestHandler(
-                _applicationServiceMock.Object,
-                _loggerMock.Object
+                _applicationServiceMock.Object
             );
         }
 

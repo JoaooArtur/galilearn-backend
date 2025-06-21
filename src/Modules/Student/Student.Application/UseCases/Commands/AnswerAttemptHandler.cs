@@ -11,8 +11,7 @@ namespace Student.Application.UseCases.Commands
 {
     public class AnswerAttemptHandler(
         IStudentApplicationService applicationService,
-        ISender sender,
-        ILogger logger) : ICommandHandler<AnswerAttemptCommand, CorrectAnswerResponse>
+        ISender sender) : ICommandHandler<AnswerAttemptCommand, CorrectAnswerResponse>
     {
 
         public async Task<Result<CorrectAnswerResponse>> Handle(AnswerAttemptCommand cmd, CancellationToken cancellationToken)

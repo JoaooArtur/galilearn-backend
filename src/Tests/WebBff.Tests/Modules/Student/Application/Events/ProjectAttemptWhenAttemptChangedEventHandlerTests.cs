@@ -17,7 +17,6 @@ public class ProjectAttemptWhenAttemptChangedEventHandlerTests
     private readonly Mock<IStudentProjection<Projection.Attempt>> _attemptProjectionMock = new();
     private readonly Mock<IStudentProjection<Projection.LessonProgress>> _lessonProjectionMock = new();
     private readonly Mock<IStudentApplicationService> _applicationServiceMock = new();
-    private readonly Mock<ISender> _senderMock = new();
     private readonly Mock<ILogger> _loggerMock = new();
 
     private readonly ProjectAttemptWhenAttemptChangedEventHandler _handler;
@@ -28,7 +27,6 @@ public class ProjectAttemptWhenAttemptChangedEventHandlerTests
             _attemptProjectionMock.Object,
             _lessonProjectionMock.Object,
             _applicationServiceMock.Object,
-            _senderMock.Object,
             _loggerMock.Object
         );
     }

@@ -14,17 +14,14 @@ namespace WebBff.Tests.Modules.Student.Application.Commands;
 public class CreateAttemptHandlerTests
 {
     private readonly Mock<IStudentApplicationService> _applicationServiceMock;
-    private readonly Mock<ILogger> _loggerMock;
     private readonly CreateAttemptHandler _handler;
 
     public CreateAttemptHandlerTests()
     {
         _applicationServiceMock = new Mock<IStudentApplicationService>();
-        _loggerMock = new Mock<ILogger>();
 
         _handler = new CreateAttemptHandler(
-            _applicationServiceMock.Object,
-            _loggerMock.Object);
+            _applicationServiceMock.Object);
     }
 
     [Fact]

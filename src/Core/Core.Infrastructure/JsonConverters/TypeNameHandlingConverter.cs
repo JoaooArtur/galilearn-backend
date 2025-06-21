@@ -14,15 +14,15 @@ namespace Core.Infrastructure.JsonConverters
         public override void WriteJson(JsonWriter writer, object? value, JsonSerializer serializer)
             => new JsonSerializer { TypeNameHandling = _typeNameHandling }.Serialize(writer, value);
 
-        public override object? ReadJson(JsonReader reader, Type type, object? existingValue, JsonSerializer serializer)
-            => new JsonSerializer { TypeNameHandling = _typeNameHandling }.Deserialize(reader, type);
+        public override object? ReadJson(JsonReader reader, Type objectType, object? existingValue, JsonSerializer serializer)
+            => new JsonSerializer { TypeNameHandling = _typeNameHandling }.Deserialize(reader, objectType);
 
-        public override bool CanConvert(Type type)
-            => IsMassTransitOrSystemType(type) is false;
+        public override bool CanConvert(Type objectType)
+            => IsMassTransitOrSystemType(objectType) is false;
 
-        private static bool IsMassTransitOrSystemType(Type type)
-            => (type.Assembly.FullName?.Contains(nameof(MassTransit)) ?? false) ||
-               type.Assembly.IsDynamic ||
-               type.Assembly == typeof(object).Assembly;
+        private static bool IsMassTransitOrSystemType(Type objectType)
+            => (objectType.Assembly.FullName?.Contains(nameof(MassTransit)) ?? false) ||
+               objectType.Assembly.IsDynamic ||
+               objectType.Assembly == typeof(object).Assembly;
     }
 }

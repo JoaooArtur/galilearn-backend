@@ -14,8 +14,7 @@ namespace Student.Application.UseCases.Commands
     public class SignInHandler(
         IStudentProjection<Projection.Student> studentProjectionGateway,
         IStudentApplicationService applicationService,
-        ITokenService tokenService,
-        ILogger logger) : ICommandHandler<SignInCommand, SignInResponse>
+        ITokenService tokenService) : ICommandHandler<SignInCommand, SignInResponse>
     {
 
         public async Task<Result<SignInResponse>> Handle(SignInCommand cmd, CancellationToken cancellationToken)

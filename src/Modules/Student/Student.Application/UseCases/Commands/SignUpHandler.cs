@@ -14,8 +14,7 @@ namespace Student.Application.UseCases.Commands
     using StudentAggregate = Domain.Aggregates.Student;
     public class SignUpHandler(
         IStudentApplicationService applicationService,
-        IStudentProjection<Projection.Student> studentProjection,
-        ILogger logger) : ICommandHandler<SignUpCommand, IdentifierResponse>
+        IStudentProjection<Projection.Student> studentProjection) : ICommandHandler<SignUpCommand, IdentifierResponse>
     {
 
         public async Task<Result<IdentifierResponse>> Handle(SignUpCommand cmd, CancellationToken cancellationToken)

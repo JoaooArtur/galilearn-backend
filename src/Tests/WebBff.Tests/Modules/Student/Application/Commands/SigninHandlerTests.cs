@@ -22,7 +22,6 @@ public class SignInHandlerTests
     private readonly Mock<IStudentProjection<Projection.Student>> _studentProjectionMock;
     private readonly Mock<IStudentApplicationService> _applicationServiceMock;
     private readonly Mock<ITokenService> _tokenServiceMock;
-    private readonly Mock<ILogger> _loggerMock;
     private readonly SignInHandler _handler;
 
     public SignInHandlerTests()
@@ -30,13 +29,11 @@ public class SignInHandlerTests
         _studentProjectionMock = new Mock<IStudentProjection<Projection.Student>>();
         _applicationServiceMock = new Mock<IStudentApplicationService>();
         _tokenServiceMock = new Mock<ITokenService>();
-        _loggerMock = new Mock<ILogger>();
 
         _handler = new SignInHandler(
             _studentProjectionMock.Object,
             _applicationServiceMock.Object,
-            _tokenServiceMock.Object,
-            _loggerMock.Object);
+            _tokenServiceMock.Object);
     }
 
     [Fact]

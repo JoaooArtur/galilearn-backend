@@ -7,8 +7,7 @@ using Student.Shared.Commands;
 namespace Student.Application.UseCases.Commands
 {
     public class RejectFriendRequestHandler(
-        IStudentApplicationService applicationService,
-        ILogger logger) : ICommandHandler<RejectFriendRequestCommand>
+        IStudentApplicationService applicationService) : ICommandHandler<RejectFriendRequestCommand>
     {
 
         public async Task<Result> Handle(RejectFriendRequestCommand cmd, CancellationToken cancellationToken)
