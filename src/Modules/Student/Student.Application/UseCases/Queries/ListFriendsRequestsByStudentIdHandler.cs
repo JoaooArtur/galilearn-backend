@@ -10,20 +10,27 @@ using Student.Shared.Response;
 namespace Student.Application.UseCases.Queries
 {
     public class ListFriendsRequestsByStudentIdHandler(
-        IStudentProjection<Projection.FriendRequests> projectionGateway) : IQueryHandler<ListFriendsRequestsByStudentIdQuery, List<ListFriendsRequestsByStudentIdResponse>>
+        IStudentProjection<Projection.FriendRequests> projectionGateway,
+        IStudentProjection<Projection.Student> studentProjectionGateway) : IQueryHandler<ListFriendsRequestsByStudentIdQuery, List<ListFriendsRequestsByStudentIdResponse>>
     {
         public async Task<Result<List<ListFriendsRequestsByStudentIdResponse>>> Handle(ListFriendsRequestsByStudentIdQuery query, CancellationToken cancellationToken)
         {
             var friendsRequests = await projectionGateway.ListAsync(x => x.StudentId == query.StudentId && x.Status == FriendRequestStatus.Pending, cancellationToken);
 
-            return friendsRequests is null ?
-                Result.Success<List<ListFriendsRequestsByStudentIdResponse>>(default) :
-                Result.Success(friendsRequests.Select(friendRequest => new ListFriendsRequestsByStudentIdResponse(
+            var response = new List<ListFriendsRequestsByStudentIdResponse>();
+            foreach (var friendRequest in friendsRequests) 
+            {
+                var friendInfo = await studentProjectionGateway.FindAsync(x => x.Id == friendRequest.FriendId, cancellationToken);
+                response.Add(new ListFriendsRequestsByStudentIdResponse(
                     friendRequest.Id,
                     friendRequest.StudentId,
                     friendRequest.FriendId,
+                    friendInfo.Name,
+                    friendInfo.Level,
                     friendRequest.Status,
-                    friendRequest.CreatedAt)).ToList());
+                    friendRequest.CreatedAt));
+            }
+            return response;
         }
     }
 }

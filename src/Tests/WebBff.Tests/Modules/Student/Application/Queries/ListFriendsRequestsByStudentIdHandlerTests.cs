@@ -16,11 +16,12 @@ namespace WebBff.Tests.Modules.Student.Application.Queries;
 public class ListFriendsRequestsByStudentIdHandlerTests
 {
     private readonly Mock<IStudentProjection<Projection.FriendRequests>> _projectionMock = new();
+    private readonly Mock<IStudentProjection<Projection.Student>> _studentProjectionMock = new();
     private readonly ListFriendsRequestsByStudentIdHandler _handler;
 
     public ListFriendsRequestsByStudentIdHandlerTests()
     {
-        _handler = new ListFriendsRequestsByStudentIdHandler(_projectionMock.Object);
+        _handler = new ListFriendsRequestsByStudentIdHandler(_projectionMock.Object, _studentProjectionMock.Object);
     }
 
     [Fact]
@@ -37,9 +38,27 @@ public class ListFriendsRequestsByStudentIdHandlerTests
             new Projection.FriendRequests(requestId, studentId, friendId, FriendRequestStatus.Pending, now)
         };
 
+        var student = new Projection.Student(
+            Guid.NewGuid(),
+            "Aluno",
+            "+5511111111",
+            "email@test.com",
+            StudentStatus.Active,
+            2,
+            0,
+            200,
+            1,
+            [],
+            DateTime.Now,
+            null,
+            DateTime.Now);
+
         _projectionMock
             .Setup(x => x.ListAsync(It.IsAny<Expression<Func<Projection.FriendRequests, bool>>>(), It.IsAny<CancellationToken>()))
             .ReturnsAsync(requests);
+        _studentProjectionMock
+            .Setup(x => x.FindAsync(It.IsAny<Expression<Func<Projection.Student, bool>>>(), It.IsAny<CancellationToken>()))
+            .ReturnsAsync(student);
 
         var query = new ListFriendsRequestsByStudentIdQuery(studentId);
 
@@ -53,6 +72,8 @@ public class ListFriendsRequestsByStudentIdHandlerTests
             requestId,
             studentId,
             friendId,
+            "Aluno",
+            2,
             FriendRequestStatus.Pending,
             now));
     }

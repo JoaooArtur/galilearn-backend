@@ -5,6 +5,8 @@ namespace Student.Shared.Response
             Guid Id,
             Guid StudentId,
             Guid FriendId,
+            string Name,
+            int Level,
             string Status,
             DateTimeOffset CreatedAt);
 }
