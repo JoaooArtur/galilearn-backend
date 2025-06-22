@@ -31,10 +31,6 @@ builder.Services
         Student.Infrastructure.AssemblyReference.Assembly,
         Subject.Infrastructure.AssemblyReference.Assembly);
 
-#if !DEBUG
-builder.ConfigureSystemsManager();
-#endif
-
 builder.Services.Configure<JwtOptions>(
     builder.Configuration.GetSection("JwtOptions"));
 
