@@ -35,18 +35,18 @@ namespace WebBff.Extensions
                     .Enrich.FromLogContext()
                     .MinimumLevel.Override("MassTransit", LogEventLevel.Warning)
                     .MinimumLevel.Override("Microsoft", LogEventLevel.Warning)
-#if !DEBUG
-                    .WriteTo.DatadogLogs(
-                        configuration.GetValue<string>("Datadog:ApiKey"),
-                        service: "webbff",
-                        tags: ["service:webbff"]);
+                    //#if !DEBUG
+                    //                    .WriteTo.DatadogLogs(
+                    //                        configuration.GetValue<string>("Datadog:ApiKey"),
+                    //                        service: "webbff",
+                    //                        tags: ["service:webbff"]);
 
-#endif
-#if DEBUG
-                    .WriteTo.Console(theme: Serilog.Sinks.SystemConsole.Themes.AnsiConsoleTheme.Code)
-                    .WriteTo.Seq("http://localhost:5341"); //NOSONAR
-#endif
-            });
+                    //#endif
+                    //#if DEBUG
+                    .WriteTo.Console(theme: Serilog.Sinks.SystemConsole.Themes.AnsiConsoleTheme.Code);
+//                    .WriteTo.Seq("http://localhost:5341"); //NOSONAR
+//#endif
+               });
 
             return builder.Host;
         }
