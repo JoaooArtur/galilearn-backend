@@ -86,8 +86,7 @@ Apenas após a aprovação em todas as etapas (build, testes e análise de quali
 ### 3. Monitoramento com New Relic
 A performance da aplicação e a observabilidade dos logs são monitoradas através do New Relic. O agente é instalado e configurado diretamente no `Dockerfile` da API, permitindo uma visão detalhada das transações, erros e saúde geral do sistema em tempo real.
 
-![Painel New Relic](![image](https://github.com/user-attachments/assets/719387db-6864-435f-9fdf-f271ec525fcd)
-)
+![Painel New Relic](https://github.com/user-attachments/assets/64a7c1a3-1727-480e-a8b8-ba7494467a45)
 
 ## Stack
 
@@ -111,9 +110,9 @@ A performance da aplicação e a observabilidade dos logs são monitoradas atrav
 ### 1. Rodar a Infraestrutura Local
 Para simplificar o ambiente de desenvolvimento, todos os serviços de infraestrutura (PostgreSQL, MongoDB, RabbitMQ) são gerenciados via Docker.
 
-Primeiro, clone o repositório de infraestrutura e inicie os contêineres:
+Primeiro, clone o repositório de infraestrutura [gallilearn-docker-compose](https://github.com/JoaooArtur/galilearn-docker-compose.git) e inicie os contêineres:
 ```bash
-git clone [https://github.com/JoaooArtur/galilearn-docker-compose.git](https://github.com/JoaooArtur/galilearn-docker-compose.git)
+git clone https://github.com/JoaooArtur/galilearn-docker-compose.git
 cd galilearn-docker-compose
 docker-compose up -d
 ```
@@ -124,7 +123,7 @@ O backend roda em um contêiner Docker separado que se conecta à rede de infrae
 
 Primeiro, clone o repositório e navegue até a pasta raiz:
 ```bash
-git clone [https://github.com/JoaooArtur/gallilearn-backend.git](https://github.com/JoaooArtur/gallilearn-backend.git)
+git clone https://github.com/JoaooArtur/gallilearn-backend.git
 cd gallilearn-backend
 ```
 Em seguida, compile a imagem Docker a partir do Dockerfile do projeto. O Dockerfile principal está localizado em src/Web/WebBff:
@@ -146,9 +145,9 @@ docker run --rm -it \
 Após esses passos, o backend estará acessível em **https://localhost:7001**.
 
 ### 3. Rodar o Frontend
-Clone o repositório, instale as dependências e inicie a aplicação:
+Clone o repositório [gallilearn-frontend](https://github.com/JoaooArtur/gallilearn-frontend.git), instale as dependências e inicie a aplicação:
 ```bash
-git clone [https://github.com/JoaooArtur/gallilearn-frontend.git](https://github.com/JoaooArtur/gallilearn-frontend.git)
+git clone https://github.com/JoaooArtur/gallilearn-frontend.git
 cd gallilearn-frontend
 npm install
 ```
@@ -156,7 +155,5 @@ Depois, crie um arquivo .env.local e adicione a URL do seu backend local:
 **REACT_APP_API_URL=https://localhost:7001**
 Finalmente, execute o frontend:
 ```bash
-git clone [https://github.com/JoaooArtur/gallilearn-frontend.git](https://github.com/JoaooArtur/gallilearn-frontend.git)
-cd gallilearn-frontend
 npm start
 ```
