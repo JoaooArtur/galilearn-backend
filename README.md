@@ -53,11 +53,13 @@
 
 ## C4 Model
 
-- [Acesse este caminho para ser redirecionado ao C4 Model.](files/c4-model.md)
+- [Acesse este caminho para ser redirecionado ao C4 Model Level 1.](https://github.com/JoaooArtur/gallilearn-docs/blob/main/c4-diagram/Gallilearn-C4-Level1.drawio.png)
+- [Acesse este caminho para ser redirecionado ao C4 Model Level 2.](https://github.com/JoaooArtur/gallilearn-docs/blob/main/c4-diagram/Gallilearn-C4-Level2.drawio.png)
+- [Acesse este caminho para ser redirecionado ao C4 Model Level 3.](https://github.com/JoaooArtur/gallilearn-docs/blob/main/c4-diagram/Gallilearn-C4-Level3.drawio.png)
 
 ## Casos de Uso
 
-- [Acesse este caminho para ser redirecionado aos requisitos e os casos de uso.](files/requirements-nonrequirementsl.md)
+- [Acesse este caminho para ser redirecionado aos requisitos e os casos de uso.](https://github.com/JoaooArtur/gallilearn-docs/blob/main/use-cases/Use-Case.drawio.png)
 
 # Documentação da Infraestrutura
 
