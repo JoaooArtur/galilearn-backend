@@ -18,18 +18,20 @@ namespace Student.Application.UseCases.Queries
             var friendsRequests = await projectionGateway.ListAsync(x => x.StudentId == query.StudentId && x.Status == FriendRequestStatus.Pending, cancellationToken);
 
             var response = new List<ListFriendsRequestsByStudentIdResponse>();
-            foreach (var friendRequest in friendsRequests) 
-            {
-                var friendInfo = await studentProjectionGateway.FindAsync(x => x.Id == friendRequest.FriendId, cancellationToken);
-                response.Add(new ListFriendsRequestsByStudentIdResponse(
-                    friendRequest.Id,
-                    friendRequest.StudentId,
-                    friendRequest.FriendId,
-                    friendInfo.Name,
-                    friendInfo.Level,
-                    friendRequest.Status,
-                    friendRequest.CreatedAt));
-            }
+
+            if(friendsRequests is not null)
+                foreach (var friendRequest in friendsRequests) 
+                {
+                    var friendInfo = await studentProjectionGateway.FindAsync(x => x.Id == friendRequest.FriendId, cancellationToken);
+                    response.Add(new ListFriendsRequestsByStudentIdResponse(
+                        friendRequest.Id,
+                        friendRequest.StudentId,
+                        friendRequest.FriendId,
+                        friendInfo.Name,
+                        friendInfo.Level,
+                        friendRequest.Status,
+                        friendRequest.CreatedAt));
+                }
             return response;
         }
     }

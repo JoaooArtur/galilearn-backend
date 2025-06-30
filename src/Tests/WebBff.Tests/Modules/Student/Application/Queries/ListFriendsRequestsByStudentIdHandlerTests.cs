@@ -95,6 +95,6 @@ public class ListFriendsRequestsByStudentIdHandlerTests
 
         // Assert
         result.IsSuccess.Should().BeTrue();
-        result.Value.Should().BeNull();
+        result.Value.Should().BeEmpty();
     }
 }
