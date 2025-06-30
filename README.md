@@ -103,7 +103,7 @@ A performance da aplicação e a observabilidade dos logs são monitoradas atrav
 - **Banco de Dados (Leitura)**: MongoDB (Atlas)
 - **Mensageria**: CloudAMQP (RabbitMQ)
 - **Testes**: xUnit, Moq, FluentAssertions
-- **Qualidade e Monitoramento**: [SonarQube Cloud](https://sonarcloud.io/project/overview?id=JoaooArtur_galilearn-backend), [CodeCov](https://app.codecov.io/gh/JoaooArtur/gallilearn-backend), New Relic
+- **Qualidade e Monitoramento**: [SonarQube Cloud](https://sonarcloud.io/project/overview?id=JoaooArtur_galilearn-backend), [CodeCov](https://app.codecov.io/gh/JoaooArtur/galilearn-backend), New Relic
 - **Infraestrutura**: Render, Docker
 
 ## Rodar localmente o projeto
